@@ -1,0 +1,412 @@
+@import "tailwindcss";
+
+/* Design tokens. Light is the default; the dark values are defined once, below. */
+@theme {
+  --color-paper: #f8f5ef; /* page ground */
+  --color-surface: #ffffff; /* raised pills and panels */
+  --color-ink: #161616; /* text and outlines */
+  --color-graphite: #5e5b54; /* secondary text */
+  --color-rule: #e0dbd0; /* grid and hairlines */
+  --color-accent: #ffd000; /* fills: logo, badges, highlights */
+  --color-on-accent: #161616; /* text on the yellow */
+  --color-gold: #7a5c00; /* accent used as text: readable on cream */
+  --font-sans: "Space Grotesk Variable", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+
+/* Dark theme: follows the system unless the visitor picks one with the toggle. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-paper: #121211;
+    --color-surface: #1c1c1a;
+    --color-ink: #f3efe6;
+    --color-graphite: #a9a59b;
+    --color-rule: #2d2c28;
+    --color-gold: #ffd000;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --color-paper: #121211;
+  --color-surface: #1c1c1a;
+  --color-ink: #f3efe6;
+  --color-graphite: #a9a59b;
+  --color-rule: #2d2c28;
+  --color-gold: #ffd000;
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-text-size-adjust: 100%;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  body {
+    min-height: 100vh;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    text-rendering: optimizeLegibility;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+  }
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+}
+
+@layer components {
+  /* Headings. */
+  .display {
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1;
+  }
+  /* Small labels. */
+  .label {
+    font-weight: 500;
+  }
+  /* Sheet numbers and dates: monospaced so columns line up. */
+  .sheet-no {
+    font-family: var(--font-mono);
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Pill button with a hard shadow. Used in the header and for secondary actions. */
+  .pill,
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 2px solid var(--color-ink);
+    border-radius: 9999px;
+    background: var(--color-surface);
+    color: var(--color-ink);
+    padding: 0.55rem 1.3rem;
+    font-weight: 500;
+    font-size: 1.05rem;
+    box-shadow: 3px 3px 0 var(--color-ink);
+    transition:
+      transform 150ms,
+      box-shadow 150ms,
+      background-color 150ms;
+  }
+  .pill:hover,
+  .btn:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--color-ink);
+  }
+  .btn {
+    padding: 0.7rem 1.5rem;
+  }
+  .btn-solid {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+
+  .logo {
+    display: grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border: 2px solid var(--color-ink);
+    border-radius: 0.8rem;
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+  .theme-toggle {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border: 2px solid var(--color-ink);
+    border-radius: 9999px;
+    background: transparent;
+    color: var(--color-ink);
+    transition: background-color 150ms;
+  }
+  .theme-toggle:hover {
+    background: var(--color-surface);
+  }
+
+  /* Hero. A drawing grid, one soft glow, and a yellow light that follows the cursor. */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .hero--pointer {
+    cursor: none;
+  }
+  .hero--pointer a,
+  .hero--pointer button {
+    cursor: pointer;
+  }
+  .hero__lines {
+    position: absolute;
+    inset: -140px;
+    z-index: -3;
+    pointer-events: none;
+    background-image:
+      linear-gradient(to right, var(--color-rule) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--color-rule) 1px, transparent 1px);
+    background-size: 110px 110px;
+    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 98%);
+    mask-image: linear-gradient(to bottom, #000 55%, transparent 98%);
+  }
+  .hero__glow {
+    position: absolute;
+    z-index: -2;
+    top: -14rem;
+    left: 50%;
+    width: min(64rem, 120vw);
+    height: 30rem;
+    margin-left: calc(min(64rem, 120vw) / -2);
+    pointer-events: none;
+    background: radial-gradient(closest-side, rgb(255 208 0 / 0.14), transparent);
+  }
+  .hero__light {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 34rem;
+    height: 34rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 300ms;
+    background: radial-gradient(closest-side, rgb(255 208 0 / 0.5), rgb(255 208 0 / 0.16) 55%, transparent);
+    will-change: transform;
+  }
+  .hero__dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    width: 0.65rem;
+    height: 0.65rem;
+    margin: -0.325rem 0 0 -0.325rem;
+    border-radius: 9999px;
+    background: var(--color-ink);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 200ms;
+    will-change: transform;
+  }
+  .hero[data-on="1"] .hero__light,
+  .hero[data-on="1"] .hero__dot {
+    opacity: 1;
+  }
+
+  /* Eyebrow: location in monospace, followed by a rule. */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-graphite);
+  }
+
+  /* The name: uppercase, heavy and tightly tracked. Each line rises out of its own mask. */
+  .name {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+    line-height: 0.84;
+  }
+  .name-line {
+    display: block;
+    overflow: hidden;
+  }
+  .name-rise {
+    display: block;
+    animation: rise 900ms cubic-bezier(0.2, 0.7, 0.1, 1) both;
+    animation-delay: var(--delay, 0ms);
+  }
+  @keyframes rise {
+    from {
+      transform: translateY(105%);
+    }
+    to {
+      transform: none;
+    }
+  }
+
+  /* Intro: eyebrow, actions and stats ease in; headline words rise out of masks. */
+  .intro {
+    animation: fade-up 800ms cubic-bezier(0.2, 0.7, 0.1, 1) both;
+    animation-delay: var(--delay, 0ms);
+  }
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .word {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+    padding-bottom: 0.16em;
+    margin-bottom: -0.16em;
+  }
+  .word > span {
+    display: inline-block;
+    animation: rise 800ms cubic-bezier(0.2, 0.7, 0.1, 1) both;
+    animation-delay: var(--delay, 0ms);
+  }
+
+  /* Primary button: pill with a yellow arrow. A yellow fill sweeps in on hover. */
+  .cta {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 1.1rem;
+    overflow: hidden;
+    border: 2px solid var(--color-ink);
+    border-radius: 9999px;
+    background: var(--color-surface);
+    color: var(--color-ink);
+    padding: 0.5rem 0.5rem 0.5rem 1.7rem;
+    font-weight: 500;
+    font-size: 1.2rem;
+    box-shadow: 5px 5px 0 var(--color-ink);
+    transition:
+      transform 180ms,
+      box-shadow 180ms;
+  }
+  .cta__fill {
+    position: absolute;
+    inset: 0;
+    background: var(--color-accent);
+    transform: translateX(-101%);
+    transition: transform 400ms cubic-bezier(0.2, 0.7, 0.1, 1);
+  }
+  .cta__text,
+  .cta__icon {
+    position: relative;
+  }
+  .cta:hover .cta__text {
+    color: var(--color-on-accent);
+  }
+  .cta__icon {
+    display: grid;
+    place-items: center;
+    width: 2.9rem;
+    height: 2.9rem;
+    border: 2px solid var(--color-ink);
+    border-radius: 9999px;
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    transition: transform 250ms;
+  }
+  .cta:hover {
+    transform: translate(3px, 3px);
+    box-shadow: 2px 2px 0 var(--color-ink);
+  }
+  .cta:hover .cta__fill {
+    transform: none;
+  }
+  .cta:hover .cta__icon {
+    transform: translateX(2px);
+  }
+
+  /* Secondary link: dashed pill with a ring, the label and a yellow badge. */
+  .ghost {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.7rem;
+    border: 2px dashed color-mix(in srgb, var(--color-graphite) 60%, transparent);
+    border-radius: 1.75rem;
+    padding: 0.8rem 1.1rem;
+    color: var(--color-graphite);
+    font-size: 1.1rem;
+    transition:
+      border-color 200ms,
+      color 200ms;
+  }
+  .ghost:hover {
+    border-style: solid;
+    border-color: var(--color-ink);
+    color: var(--color-ink);
+  }
+  .ghost__dot {
+    width: 0.8rem;
+    height: 0.8rem;
+    border: 2px solid var(--color-ink);
+    border-radius: 9999px;
+    background: var(--color-accent);
+  }
+  .ghost__badge {
+    border: 1px solid var(--color-ink);
+    border-radius: 9999px;
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    padding: 0.1rem 0.7rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .s-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.75rem 1.5rem;
+    border-top: 1px solid var(--color-rule);
+    padding-top: 1.75rem;
+  }
+  @media (min-width: 1024px) {
+    .s-stats {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+  .s-stats b {
+    display: block;
+    font-size: clamp(2.5rem, 5vw, 3.75rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .s-stats span {
+    display: block;
+    margin-top: 0.5rem;
+    max-width: 22ch;
+    font-size: 0.95rem;
+    line-height: 1.35;
+    color: var(--color-graphite);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .name-rise,
+    .word > span,
+    .intro {
+      animation: none;
+    }
+    .cta,
+    .cta__fill,
+    .cta__icon,
+    .pill,
+    .btn {
+      transition: none;
+    }
+  }
+}

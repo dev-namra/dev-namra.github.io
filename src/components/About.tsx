@@ -11,13 +11,13 @@ export default function About() {
         <div className="mt-10 grid gap-10 md:grid-cols-[18rem_1fr] md:gap-16">
           <figure className="max-w-xs md:max-w-none">
             <img
-              src={asset(profile.photo.src)}
-              alt={profile.photo.alt}
-              width={800}
-              height={800}
-              loading="lazy"
-              className="aspect-square w-full border-2 border-ink object-cover"
-            />
+  src={asset(profile.photo.src)}
+  alt={profile.photo.alt}
+  width={800}
+  height={800}
+  loading="lazy"
+  className="aspect-square w-full rounded-full border-2 border-ink object-cover"
+/>
           </figure>
           <div className="max-w-[60ch] space-y-5 text-xl leading-[1.7]">
             {profile.about.map((para) => (

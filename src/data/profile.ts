@@ -11,6 +11,13 @@ export interface Role {
   tags?: string[];
 }
 
+export interface Stat {
+  to: number;
+  label: string;
+  prefix?: string;
+  suffix?: string;
+}
+
 export const profile = {
   name: 'Namra Mahak',
   initials: 'NM',
@@ -23,14 +30,13 @@ export const profile = {
     { text: ' that teams actually use.' },
   ],
 
-  // Counted up in the hero. EDIT: your older site says "£19,000+" for the saving. Your Merit Spark
-  // case study says about £15,000 projected. The lower, projected figure is used here.
+  // Counted up in the hero.
   stats: [
     { to: 5, suffix: '+', label: 'years across architecture and BIM' },
-    { to: 62, suffix: '+', label: 'active users on Spark Construct' },
-    { to: 15000, prefix: '£', label: 'projected yearly licence savings' },
+    { to: 3, label: 'firms, from design practice to construction' },
     { to: 2, label: 'countries of practice, India and the UK' },
-  ],
+    { to: 2, label: 'degrees: B.Arch and MSc in BIM' },
+  ] as Stat[],
 
   about: [
     'I trained as an architect and spent three years in Delhi designing offices, showrooms and expo booths. Then I moved into BIM.',
@@ -149,7 +155,7 @@ export const profile = {
   ],
 
   links: {
-    email: 'mahaknamra@gmail.com',
+    email: 'mahaknamra@outlook.com',
     linkedin: 'https://linkedin.com/in/namra-mahak',
     github: 'https://github.com/dev-namra',
     // EDIT: put your CV in /public and set e.g. '/Namra-Mahak-CV.pdf'. Empty hides the CV buttons.

@@ -13,8 +13,7 @@ export default function Contact() {
           Hiring for BIM, automation or architecture?
         </h2>
         <p className="mt-8 max-w-[44ch] text-2xl leading-[1.45]">
-          If your models, schedules or spreadsheets are doing too much by hand, write to me. I’m open to
-          roles in {profile.availability}.
+          If your models, schedules or spreadsheets are doing too much by hand, write to me.
         </p>
 
         <p className="mt-10">

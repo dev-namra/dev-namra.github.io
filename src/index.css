@@ -274,97 +274,116 @@
     animation-delay: var(--delay, 0ms);
   }
 
-  /* Primary button: pill with a yellow arrow. A yellow fill sweeps in on hover. */
-  .cta {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    gap: 1.1rem;
-    overflow: hidden;
-    border: 2px solid var(--color-ink);
-    border-radius: 9999px;
-    background: var(--color-surface);
-    color: var(--color-ink);
-    padding: 0.5rem 0.5rem 0.5rem 1.7rem;
-    font-weight: 500;
-    font-size: 1.2rem;
-    box-shadow: 5px 5px 0 var(--color-ink);
-    transition:
-      transform 180ms,
-      box-shadow 180ms;
-  }
-  .cta__fill {
-    position: absolute;
-    inset: 0;
-    background: var(--color-accent);
-    transform: translateX(-101%);
-    transition: transform 400ms cubic-bezier(0.2, 0.7, 0.1, 1);
-  }
-  .cta__text,
-  .cta__icon {
-    position: relative;
-  }
-  .cta:hover .cta__text {
-    color: var(--color-on-accent);
-  }
-  .cta__icon {
-    display: grid;
-    place-items: center;
-    width: 2.9rem;
-    height: 2.9rem;
-    border: 2px solid var(--color-ink);
-    border-radius: 9999px;
-    background: var(--color-accent);
-    color: var(--color-on-accent);
-    transition: transform 250ms;
-  }
-  .cta:hover {
-    transform: translate(3px, 3px);
-    box-shadow: 2px 2px 0 var(--color-ink);
-  }
-  .cta:hover .cta__fill {
-    transform: none;
-  }
-  .cta:hover .cta__icon {
-    transform: translateX(2px);
-  }
 
-  /* Secondary link: dashed pill with a ring, the label and a yellow badge. */
-  .ghost {
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.7rem;
-    border: 2px dashed color-mix(in srgb, var(--color-graphite) 60%, transparent);
-    border-radius: 1.75rem;
-    padding: 0.8rem 1.1rem;
-    color: var(--color-graphite);
-    font-size: 1.1rem;
-    transition:
-      border-color 200ms,
-      color 200ms;
-  }
-  .ghost:hover {
-    border-style: solid;
-    border-color: var(--color-ink);
-    color: var(--color-ink);
-  }
-  .ghost__dot {
-    width: 0.8rem;
-    height: 0.8rem;
-    border: 2px solid var(--color-ink);
-    border-radius: 9999px;
-    background: var(--color-accent);
-  }
-  .ghost__badge {
-    border: 1px solid var(--color-ink);
-    border-radius: 9999px;
-    background: var(--color-accent);
-    color: var(--color-on-accent);
-    padding: 0.1rem 0.7rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-  }
+/* Smaller primary CTA */
+.cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  overflow: hidden;
+  border: 2px solid var(--color-ink);
+  border-radius: 9999px;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  padding: 0.35rem 0.35rem 0.35rem 1.2rem;
+  font-weight: 500;
+  font-size: 1rem;
+  box-shadow: 4px 4px 0 var(--color-ink);
+  transition:
+    transform 180ms,
+    box-shadow 180ms;
+}
+
+.cta__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--color-accent);
+  transform: translateX(-101%);
+  transition: transform 400ms cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+
+.cta__text,
+.cta__icon {
+  position: relative;
+}
+
+.cta:hover .cta__text {
+  color: var(--color-on-accent);
+}
+
+.cta__icon {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  border: 2px solid var(--color-ink);
+  border-radius: 9999px;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  transition: transform 250ms;
+}
+
+.cta:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--color-ink);
+}
+
+.cta:hover .cta__fill {
+  transform: none;
+}
+
+.cta:hover .cta__icon {
+  transform: translateX(2px);
+}
+
+
+/* Smaller secondary CTA */
+.ghost {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1.5px dashed color-mix(
+    in srgb,
+    var(--color-graphite) 60%,
+    transparent
+  );
+  border-radius: 1.5rem;
+  padding: 0.5rem 0.5rem 0.5rem 1.2rem;
+  color: var(--color-graphite);
+  font-size: 1rem;
+  transition:
+    border-color 200ms,
+    color 200ms;
+}
+
+.ghost:hover {
+  border-style: solid;
+  border-color: var(--color-ink);
+  color: var(--color-ink);
+}
+
+.ghost__dot {
+  width: 0.65rem;
+  height: 0.65rem;
+  flex-shrink: 0;
+  border: 1.5px solid var(--color-ink);
+  border-radius: 9999px;
+  background: var(--color-accent);
+}
+
+.ghost__badge {
+  border: 1px solid var(--color-ink);
+  border-radius: 9999px;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  padding: 0.1rem 0.55rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
 
   .s-stats {
     display: grid;
@@ -386,7 +405,7 @@
     line-height: 1;
     font-variant-numeric: tabular-nums;
   }
-  .s-stats span {
+  .s-stats > * > span {
     display: block;
     margin-top: 0.5rem;
     max-width: 22ch;

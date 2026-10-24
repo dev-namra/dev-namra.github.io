@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import CursorDot from './components/CursorDot';
 import Home from './pages/Home';
 import ProjectPage from './pages/ProjectPage';
 import NotFound from './pages/NotFound';
@@ -31,6 +32,7 @@ export default function App() {
         Skip to content
       </a>
       <ScrollManager />
+      <CursorDot />
       <Header />
       <main id="main">
         <Routes>

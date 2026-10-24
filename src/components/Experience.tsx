@@ -1,56 +1,154 @@
+import { useEffect, useState, type MouseEvent } from 'react';
 import { profile } from '../data/profile';
-import SectionHeading from './SectionHeading';
+import { scrollToId } from '../lib/scroll';
 
-// Newest first. The numbers give each role a reference (the list is a sequence in time).
+const idFor = (i: number) => `job-${i}`;
+
 export default function Experience() {
+  const jobs = profile.experience;
+  const [active, setActive] = useState(0);
+
+  // Highlight the left-hand item for the card that is in the middle of the screen.
+  useEffect(() => {
+    const cards = jobs.map((_, i) => document.getElementById(idFor(i)));
+    const seen = new Map<Element, boolean>();
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => seen.set(e.target, e.isIntersecting));
+        const first = cards.findIndex((c) => c && seen.get(c));
+        if (first !== -1) setActive(first);
+      },
+      { rootMargin: '-35% 0px -55% 0px' },
+    );
+
+    cards.forEach((c) => c && io.observe(c));
+    return () => io.disconnect();
+  }, [jobs]);
+
+  const jump = (i: number) => (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    setActive(i);
+    scrollToId(idFor(i));
+  };
+
   return (
     <section id="experience" aria-labelledby="experience-title" className="border-b-[3px] border-ink">
-      <div className="mx-auto max-w-[1400px] px-6 py-16 md:px-10 md:py-20">
-        <SectionHeading
-          id="experience-title"
-          intro="Five roles across two countries, newest first. Open any row for the detail."
-        >
-          Experience
-        </SectionHeading>
+      <div className="mx-auto container px-6 py-16 md:px-10 md:py-20">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,24rem)_minmax(0,1fr)] lg:gap-x-[clamp(2rem,6vw,6rem)]">
+          {/* Left: heading and the list of roles (sticky on large screens) */}
+          <div className="lg:sticky lg:top-24 lg:self-start">
+            <p className="flex items-center gap-4 text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-muted sm:text-xs sm:tracking-[0.22em]">
+              Experience
+              <span aria-hidden className="h-[2px] max-w-[33rem] flex-1 bg-accent" />
+            </p>
 
-        <ol className="mt-10 border-t-2 border-ink">
-          {profile.experience.map((role, i) => (
-            <li key={role.title + role.org + role.years} className="border-b border-rule">
-              <details open={i === 1} className="group">
-                <summary className="grid cursor-pointer list-none grid-cols-[2.5rem_1fr] gap-x-4 gap-y-1 py-5 marker:content-none md:grid-cols-[4rem_1fr_14rem_7rem] md:gap-x-8 [&::-webkit-details-marker]:hidden">
-                  <span className="sheet-no pt-1 text-graphite">{String(i + 1).padStart(2, '0')}</span>
-                  <span>
-                    <span className="display block text-2xl underline-offset-4 group-hover:underline md:text-3xl">
-                      {role.title}
-                    </span>
-                    <span className="mt-1 block text-lg text-graphite">{role.org}</span>
-                  </span>
-                  <span className="col-start-2 text-graphite md:col-start-auto md:pt-1">{role.place}</span>
-                  <span className="sheet-no col-start-2 text-graphite md:col-start-auto md:pt-1 md:text-right">
-                    {role.years}
-                  </span>
-                </summary>
-                <div className="pb-8 md:pl-24">
-                  <ul className="max-w-[62ch] list-disc space-y-2 pl-5 text-lg leading-[1.6]">
-                    {role.points.map((point) => (
-                      <li key={point}>{point}</li>
+            <h2
+              id="experience-title"
+              className="mt-4 text-[clamp(2.25rem,4vw,3.25rem)] font-bold leading-none tracking-[-0.04em]"
+            >
+              Where I’ve been
+            </h2>
+
+            <nav aria-label="Roles" className="mt-10 hidden lg:block">
+              <ul className="space-y-1">
+                {jobs.map((job, i) => {
+                  const on = i === active;
+                  return (
+                    <li key={`${job.org}-${job.title}`}>
+                      <a
+                        href={`#${idFor(i)}`}
+                        onClick={jump(i)}
+                        aria-current={on ? 'true' : undefined}
+                        className={`flex gap-4 rounded-xl px-4 py-3.5 transition-colors duration-200 ${
+                          on ? 'bg-white border border-accent' : 'hover:bg-ink/[0.04]'
+                        }`}
+                      >
+                        <span
+                          aria-hidden
+                          className={`mt-[0.55rem] h-3 w-3 shrink-0 rounded-full border-[1.5px] border-ink transition-colors duration-200 ${
+                            on ? 'bg-accent' : 'bg-transparent'
+                          }`}
+                        />
+                        <span className="min-w-0">
+                          <span
+                            className={`block text-lg leading-snug transition-colors duration-200 ${
+                              on ? 'font-medium bold' : 'text-muted'
+                            }`}
+                          >
+                            {job.title}
+                          </span>
+                          <span className="mt-1 block text-sm text-muted">
+                            {job.org} · {job.place} · {job.years}
+                          </span>
+                        </span>
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
+          </div>
+
+          {/* Right: one card per role */}
+          <ol className="space-y-8">
+            {jobs.map((job, i) => (
+              <li key={`${job.org}-${job.title}`}>
+                <article
+                  id={idFor(i)}
+                  className="scroll-mt-24 rounded-[1.1rem] border-[3px] border-ink bg-white p-6 shadow-[6px_6px_0_0_var(--color-ink)] sm:p-8"
+                >
+                  <p className="text-base">
+                    <span className="font-semibold">{job.years}</span>
+                    <span className="text-muted"> · {job.org} · {job.place}</span>
+                  </p>
+
+                  <h3 className="mt-3 text-2xl font-bold leading-tight tracking-[-0.03em] sm:text-3xl">
+                    {job.title}
+                  </h3>
+
+                  <ul className="mt-5 space-y-3">
+                    {job.points.map((point) => (
+                      <li key={point} className="flex gap-4 text-base leading-[1.7] sm:text-lg">
+                        <span
+                          aria-hidden
+                          className="mt-[0.6rem] h-2.5 w-2.5 shrink-0 border-[1.5px] border-ink bg-accent"
+                        />
+                        <span>{point}</span>
+                      </li>
                     ))}
                   </ul>
-                  {'tags' in role && role.tags && (
-                    <ul className="mt-5 flex flex-wrap gap-2">
-                      {role.tags.map((tag) => (
-                        <li key={tag} className="rounded-full border border-rule px-3 py-0.5 text-sm text-graphite">
+
+                  {'tags' in job && job.tags && job.tags.length > 0 && (
+                    <ul className="mt-6 flex flex-wrap gap-2">
+                      {job.tags.map((tag) => (
+                        <li
+                          key={tag}
+                          className="rounded-lg border border-rule px-3 py-1.5 text-sm text-muted"
+                        >
                           {tag}
                         </li>
                       ))}
                     </ul>
                   )}
-                </div>
-              </details>
-            </li>
-          ))}
-        </ol>
+                </article>
+              </li>
+            ))}
+          </ol>
+        </div>
       </div>
+
+      {/* Back to top */}
+      <button
+        type="button"
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        aria-label="Back to top"
+        className="fixed bottom-6 right-6 z-50 grid h-12 w-12 place-items-center rounded-full border-2 border-ink bg-white text-ink shadow-[3px_3px_0_0_var(--color-ink)] transition duration-150 hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_var(--color-ink)] md:bottom-8 md:right-8 md:h-14 md:w-14"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
     </section>
   );
 }

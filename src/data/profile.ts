@@ -18,6 +18,20 @@ export interface Stat {
   suffix?: string;
 }
 
+export interface Certificate {
+  title: string;
+  issuer: string;
+  date?: string;
+}
+
+// For licences and registrations. Add entries to `licenses` below, for example:
+// { title: 'Council of Architecture registration', issuer: 'Council of Architecture, India', valid: 'Since 2020' }
+export interface License {
+  title: string;
+  issuer: string;
+  valid?: string;
+}
+
 export const profile = {
   name: 'Namra Mahak',
   initials: 'NM',
@@ -39,32 +53,37 @@ export const profile = {
   ] as Stat[],
 
   about: [
-    'I trained as an architect and spent three years in Delhi designing offices, showrooms and expo booths. Then I moved into BIM.',
-    'At Merit, a UK offsite construction contractor in Newcastle, I built the internal BIM platform, the real-time IoT dashboards and the automation that connects Microsoft Teams, Planner and Power BI.',
-    'Being an architect means I know what the model is for. Being a developer means I can fix the process around it.',
-    'I’m on a career break, building this portfolio and sharpening my Revit API and cloud skills. I’m looking for BIM, digital construction and automation roles in the UAE, Europe and the UK.',
+    'My career has crossed two countries. In India I trained as an architect and spent three years in Delhi designing offices, showrooms and expo booths, then producing the working drawings to build them. That taught me what a drawing has to do once it leaves the studio.',
+    'In the UK I completed a master\u2019s in BIM and then spent almost three years with an offsite construction contractor. There I managed model information for hospital projects using ISO 19650, BIM 360 and a common data environment, built Revit tools that automate drawings, and created a web platform that gives project and factory teams direct access to model data.',
+    'I\u2019m a BIM specialist with an architect\u2019s eye, and I use automation to keep models accurate, current and easy for project teams to use.',
+    'I\u2019m on a career break, building this portfolio and sharpening my Revit API and cloud skills. I\u2019m looking for BIM, digital construction and automation roles.',
   ],
   photo: {
     src: '/about/namra.webp',
     alt: 'Namra Mahak smiling at her desk',
   },
 
+  // Shown in this order. BIM first, because that is what you are applying for.
   skills: [
     {
-      group: 'BIM and design',
-      items: ['Revit', 'Revit API', 'Navisworks', 'Synchro', 'BIM 360', 'Autodesk Platform Services', 'Figma'],
+      group: 'BIM and coordination',
+      items: ['Revit', 'Navisworks', 'BIM 360 / ACC', 'Autodesk Platform Services'],
     },
     {
-      group: 'Automation and data',
-      items: ['Power Automate', 'Power BI', 'Python', 'SQL'],
+      group: 'Standards and delivery',
+      items: ['ISO 19650', 'Common data environment (CDE)', 'Model information management', 'Offsite construction (DfMA)'],
     },
     {
-      group: 'Languages',
-      items: ['JavaScript', 'TypeScript', 'Python', 'C#'],
+      group: 'Design and documentation',
+      items: ['Working drawings', 'AutoCAD', '3ds Max', 'Client presentations'],
+    },
+    {
+      group: 'BIM automation',
+      items: ['Revit API', 'C#', 'Python', 'Power Automate', 'Power BI', 'SQL'],
     },
     {
       group: 'Web and cloud',
-      items: ['React', 'Node.js', 'Tailwind CSS', 'Azure', 'Docker', 'Git', 'GitHub Actions'],
+      items: ['React', 'TypeScript', 'JavaScript', 'Node.js', 'Tailwind CSS', 'Azure', 'Docker', 'Git', 'GitHub Actions'],
     },
   ],
 
@@ -73,7 +92,7 @@ export const profile = {
       title: 'Career break: portfolio and upskilling',
       org: 'Self-directed',
       place: 'New Delhi, India',
-      years: '2026–present',
+      years: '2026\u2013present',
       points: [
         'Built a professional portfolio showing BIM automation and platform development work.',
         'Strengthened skills in Revit API, React and cloud-based construction technology.',
@@ -84,10 +103,10 @@ export const profile = {
       title: 'BIM and Digital Construction Specialist',
       org: 'Merit',
       place: 'Newcastle upon Tyne, UK',
-      years: '2023–2026',
+      years: '2023\u20132026',
       points: [
         'Led development of a secure internal BIM platform integrated with Autodesk Platform Services.',
-        'Replaced legacy software, with projected licence savings of about £15,000 a year.',
+        'Replaced legacy software, with projected licence savings of about \u00a315,000 a year.',
         'Developed real-time IoT dashboards and AI-powered tools.',
         'Automated workflows with Power Automate and Power BI.',
       ],
@@ -109,7 +128,7 @@ export const profile = {
       title: 'Senior Designer',
       org: 'Zeppelin Design and Environments',
       place: 'India',
-      years: '2020–2022',
+      years: '2020\u20132022',
       points: [
         'Led design and execution for commercial, hospitality and retail projects.',
         'Coordinated with vendors and contractors.',
@@ -120,7 +139,7 @@ export const profile = {
       title: 'Architect',
       org: 'Sconce Global',
       place: 'India',
-      years: '2019–2020',
+      years: '2019\u20132020',
       points: [
         'Created conceptual designs and presentations for major clients.',
         'Designed expo booths for large-scale events.',
@@ -132,14 +151,14 @@ export const profile = {
   education: [
     {
       title: 'MSc BIM Project Management',
-      org: 'Queen’s University Belfast, UK',
-      years: '2022–2023',
-      note: 'Building Information Modelling and digital project delivery. Coordinating interdisciplinary teams with Revit, Navisworks and Synchro.',
+      org: 'Queen\u2019s University Belfast, UK',
+      years: '2022\u20132023',
+      note: 'Building Information Modelling and digital project delivery. Coordinating interdisciplinary teams with Revit and Navisworks.',
     },
     {
       title: 'Bachelor of Architecture',
       org: 'Jamia Millia Islamia, India',
-      years: '2014–2019',
+      years: '2014\u20132019',
       note: 'A five-year professional degree focused on sustainable design, construction technology and urban planning.',
     },
   ],
@@ -150,9 +169,12 @@ export const profile = {
     { title: 'Practical GitHub Actions', issuer: 'LinkedIn', date: 'Mar 2025' },
     { title: 'React in Action', issuer: 'LinkedIn', date: 'Mar 2025' },
     { title: 'Learning Next.js', issuer: 'LinkedIn', date: 'Mar 2025' },
-    { title: 'Learn JavaScript, HTML and CSS', issuer: 'Codecademy', date: 'Oct–Nov 2023' },
+    { title: 'Learn JavaScript, HTML and CSS', issuer: 'Codecademy', date: 'Oct\u2013Nov 2023' },
     { title: 'Learn C#', issuer: 'Codecademy', date: 'Sep 2023' },
-  ],
+  ] as Certificate[],
+
+  // Shown as a third card when it has entries. Empty means the card is hidden.
+  licenses: [] as License[],
 
   links: {
     email: 'mahaknamra@outlook.com',

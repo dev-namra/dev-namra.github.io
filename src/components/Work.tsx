@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { Link } from 'react-router-dom';
 import {
   asset,
@@ -5,104 +6,116 @@ import {
   seriesInfo,
   sheetNumber,
   sideProjects,
-  subSheetNumber,
   type Project,
   type SeriesCode,
 } from '../data/projects';
 import Flow from './Flow';
-import SectionHeading from './SectionHeading';
 
 const seriesCodes: SeriesCode[] = ['BA', 'AR'];
+
+// Tab labels. BIM first, because that is the work you are applying for.
+const tabLabel: Record<SeriesCode, string> = {
+  BA: 'BIM and automation',
+  AR: 'Architecture and interiors',
+};
+
+const pad = (n: number) => String(n).padStart(2, '0');
+
+// White frame with a thick border and a hard shadow, like the rest of the site.
+const frame =
+  'rounded-[1.1rem] border-[3px] border-ink bg-white shadow-[8px_8px_0_0_var(--color-ink)]';
 
 function Thumb({ project }: { project: Project }) {
   if (project.thumb) {
     return (
-      <img
-        src={asset(project.thumb.src)}
-        alt={project.thumb.alt}
-        loading="lazy"
-        className="aspect-[3/2] w-full border-2 border-ink bg-black object-cover"
-      />
+      <div className={`${frame} p-3 sm:p-5`}>
+        <img
+          src={asset(project.thumb.src)}
+          alt={project.thumb.alt}
+          loading="lazy"
+          className="aspect-[16/10] w-full rounded-lg object-contain"
+        />
+      </div>
     );
   }
   if (project.flow) {
     return (
-      <div className="grid aspect-[3/2] place-items-center border-2 border-ink p-5">
-        <div className="w-full max-w-[16rem]">
+      <div className={`${frame} grid aspect-[16/10] place-items-center p-6`}>
+        <div className="w-full container">
           <Flow steps={project.flow} compact />
         </div>
       </div>
     );
   }
+  // No image yet: a calm placeholder that still looks intentional.
   return (
     <div
       aria-hidden
-      className="display grid aspect-[3/2] place-items-center border-2 border-ink text-7xl text-rule md:text-8xl"
+      className={`${frame} grid aspect-[16/10] place-items-center bg-accent/15 text-6xl font-bold tracking-[-0.04em] text-ink/25 md:text-7xl`}
     >
       {sheetNumber(project)}
     </div>
   );
 }
 
-function ProjectRow({ project }: { project: Project }) {
-  const accent = project.series === 'BA' ? 'text-gold' : 'text-ink';
+function ProjectRow({ project, index }: { project: Project; index: number }) {
+  const to = `/project/${project.slug}`;
 
   return (
-    <li className="group relative border-t border-rule py-10 first:border-t-2 first:border-ink">
-      <div className="grid grid-cols-[minmax(0,1fr)] gap-x-10 gap-y-6 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
-        <Thumb project={project} />
+    <li className="py-10 first:pt-2 md:py-14">
+      <div className="grid items-center gap-x-[clamp(2rem,5vw,5rem)] gap-y-8 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
+        <Link to={to} tabIndex={-1} aria-hidden className="block pb-2 pr-2">
+          <Thumb project={project} />
+        </Link>
 
-        <div>
-          <p className="sheet-no text-base text-graphite">
-            <span className={accent}>{sheetNumber(project)}</span>
-            <span className="mx-2" aria-hidden>
-              /
-            </span>
-            {project.period}
-            <span className="mx-2" aria-hidden>
-              /
-            </span>
-            {project.type}
+        <div className="min-w-0">
+          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-muted sm:text-xs sm:tracking-[0.22em]">
+            {pad(index + 1)} / {project.period} · {project.type}
             {project.draft && (
-              <span className="label ml-3 border border-graphite px-2 py-0.5 text-sm font-medium">
+              <span className="ml-3 rounded border border-muted px-2 py-0.5 normal-case tracking-normal">
                 Draft, hidden when published
               </span>
             )}
           </p>
 
-          <h4 className="display mt-2 text-4xl md:text-5xl">
-            <Link
-              to={`/project/${project.slug}`}
-              className="underline-offset-[0.12em] after:absolute after:inset-0 group-hover:underline group-hover:decoration-2"
-            >
-              {project.title}
-            </Link>
-          </h4>
-          <p className="label mt-2 text-lg text-graphite">{project.subtitle}</p>
-          <p className="mt-4 max-w-[56ch] text-lg leading-[1.6]">{project.summary}</p>
+          <h3 className="mt-3 text-[clamp(2.25rem,4.4vw,4rem)] font-bold leading-[1.02] tracking-[-0.045em]">
+            <Link to={to}>{project.title}</Link>
+          </h3>
 
-          {project.sub.length > 0 && (
-            <ul className="mt-6 space-y-1.5 border-l-2 border-ink pl-5">
-              {project.sub.map((s, i) => (
-                <li key={s.title} className="flex gap-4">
-                  <span className="sheet-no w-[4.5rem] shrink-0 text-graphite">
-                    {subSheetNumber(project, i)}
-                  </span>
-                  <span>{s.title}</span>
-                </li>
-              ))}
-            </ul>
-          )}
+          <p className="mt-3 text-lg leading-snug text-muted sm:text-xl">{project.subtitle}</p>
+          <p className="mt-4 max-w-[46ch] text-base leading-[1.7] text-muted sm:text-lg">
+            {project.summary}
+          </p>
 
           <ul className="mt-6 flex flex-wrap gap-2">
             {project.scope.map((tag) => (
-              <li key={tag} className="rounded-full border border-rule px-3 py-0.5 text-sm text-graphite">
+              <li
+                key={tag}
+                className="rounded-lg border border-rule px-3 py-1.5 text-sm text-muted"
+              >
                 {tag}
               </li>
             ))}
           </ul>
 
-          <p className="label mt-6 text-lg underline underline-offset-4">Read the case study</p>
+          <Link to={to} className="cta mt-8">
+            <span className="cta__fill" aria-hidden />
+            <span className="cta__text">Read the case study</span>
+            <span className="cta__icon" aria-hidden>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M3 8h10M9 4l4 4-4 4" />
+              </svg>
+            </span>
+          </Link>
         </div>
       </div>
     </li>
@@ -110,41 +123,126 @@ function ProjectRow({ project }: { project: Project }) {
 }
 
 export default function Work() {
+  const available = seriesCodes.filter((c) => projectsInSeries(c).length > 0);
+  const [active, setActive] = useState<SeriesCode>(available[0] ?? 'BA');
+  const tabRefs = useRef<Partial<Record<SeriesCode, HTMLButtonElement | null>>>({});
+
+  // Links such as /#core-architecture open the matching tab.
+  useEffect(() => {
+    const fromHash = () => {
+      const hash = window.location.hash.replace('#', '');
+      const code = available.find((c) => seriesInfo[c].id === hash);
+      if (code) {
+        setActive(code);
+        requestAnimationFrame(() =>
+          document.getElementById('work-tabs')?.scrollIntoView({ behavior: 'smooth', block: 'start' }),
+        );
+      }
+    };
+    fromHash();
+    window.addEventListener('hashchange', fromHash);
+    return () => window.removeEventListener('hashchange', fromHash);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const onKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
+    const i = available.indexOf(active);
+    let next = i;
+    if (e.key === 'ArrowRight') next = (i + 1) % available.length;
+    else if (e.key === 'ArrowLeft') next = (i - 1 + available.length) % available.length;
+    else if (e.key === 'Home') next = 0;
+    else if (e.key === 'End') next = available.length - 1;
+    else return;
+    e.preventDefault();
+    const code = available[next];
+    setActive(code);
+    tabRefs.current[code]?.focus();
+  };
+
+  const info = seriesInfo[active];
+  const list = projectsInSeries(active);
+
   return (
     <section id="work" aria-labelledby="work-title" className="border-b-[3px] border-ink">
-      <div className="mx-auto max-w-[1400px] px-6 py-16 md:px-10 md:py-20">
-        <SectionHeading
-          id="work-title"
-          intro="Two series of work: the software and automation I built for BIM teams, and the architecture I drew before that."
-        >
+      <div className="mx-auto container px-6 py-16 md:px-10 md:py-20">
+        {/* Label with a long accent line, then the heading */}
+        <p className="flex items-center gap-4 text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-muted sm:text-xs sm:tracking-[0.22em]">
           Selected work
-        </SectionHeading>
+          <span aria-hidden className="h-[2px] max-w-[33rem] flex-1 bg-accent" />
+        </p>
 
-        {seriesCodes.map((code) => {
-          const list = projectsInSeries(code);
-          if (list.length === 0) return null;
-          const info = seriesInfo[code];
-          return (
-            <div key={code} id={info.id} className="mt-16">
-              <div className="flex flex-wrap items-baseline gap-x-5 gap-y-1">
-                <span className={`sheet-no text-3xl ${code === 'BA' ? 'text-gold' : 'text-ink'}`}>
-                  {code}
+        <h2
+          id="work-title"
+          className="mt-4 text-[clamp(2.25rem,4vw,3.25rem)] font-bold leading-none tracking-[-0.04em]"
+        >
+          Projects worth opening
+        </h2>
+        <p className="mt-4 max-w-[52ch] text-lg leading-[1.6] text-muted">
+          Choose a tab: the software and automation I built for BIM teams, or the architecture and
+          interiors I designed before that.
+        </p>
+
+        {/* Folder-style tabs: the active tab joins the content below it */}
+        <div
+          id="work-tabs"
+          role="tablist"
+          aria-label="Type of work"
+          className="mt-10 flex scroll-mt-24 items-end gap-2 border-b-[3px] border-ink"
+        >
+          {available.map((code) => {
+            const on = code === active;
+            return (
+              <button
+                key={code}
+                ref={(el) => {
+                  tabRefs.current[code] = el;
+                }}
+                role="tab"
+                id={`tab-${code}`}
+                type="button"
+                aria-selected={on}
+                aria-controls={`panel-${code}`}
+                tabIndex={on ? 0 : -1}
+                onClick={() => setActive(code)}
+                onKeyDown={onKeyDown}
+                className={`relative flex-1 rounded-t-xl border-[3px] border-b-0 px-3 text-center text-sm font-semibold leading-tight transition-colors duration-150 sm:flex-none sm:px-7 sm:text-lg ${
+                  on
+                    ? 'z-10 -mb-[3px] border-ink bg-paper pb-[calc(0.875rem+3px)] pt-[0.875rem] shadow-[inset_0_6px_0_0_var(--color-accent)] sm:pt-[1.125rem]'
+                    : 'border-rule bg-ink/[0.05] py-3 text-muted hover:bg-accent/20 hover:text-ink sm:py-3.5'
+                }`}
+              >
+                {tabLabel[code]}
+                <span
+                  className={`ml-2 rounded-full px-2 py-0.5 text-xs ${
+                    on ? 'bg-accent text-ink' : 'bg-ink/10'
+                  }`}
+                >
+                  {projectsInSeries(code).length}
                 </span>
-                <h3 className="display text-4xl md:text-5xl">{info.title}</h3>
-              </div>
-              <p className="mt-3 max-w-[52ch] text-lg leading-[1.6] text-graphite">{info.intro}</p>
-              <ol className="mt-8">
-                {list.map((p) => (
-                  <ProjectRow key={p.slug} project={p} />
-                ))}
-              </ol>
-            </div>
-          );
-        })}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Active tab */}
+        <div
+          role="tabpanel"
+          id={`panel-${active}`}
+          aria-labelledby={`tab-${active}`}
+          tabIndex={0}
+          className="pt-8 focus:outline-none"
+        >
+          <p className="max-w-[52ch] text-lg leading-[1.6] text-muted">{info.intro}</p>
+          <ol className="mt-8 divide-y divide-rule">
+            {list.map((p, i) => (
+              <ProjectRow key={p.slug} project={p} index={i} />
+            ))}
+          </ol>
+        </div>
 
         <div className="mt-16">
-          <h3 className="display text-3xl md:text-4xl">Also built</h3>
-          <p className="mt-2 max-w-[52ch] text-lg text-graphite">
+          <h3 className="text-3xl font-bold tracking-[-0.03em] md:text-4xl">Also built</h3>
+          <p className="mt-2 max-w-[52ch] text-lg text-muted">
             Smaller front-end projects, live on the web.
           </p>
           <ul className="mt-6 border-t-2 border-ink">
@@ -157,12 +255,12 @@ export default function Work() {
                   href={p.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="display text-2xl underline-offset-4 hover:underline"
+                  className="text-2xl font-bold underline-offset-4 hover:underline"
                 >
                   {p.title}
                 </a>
                 <span className="text-lg">{p.description}</span>
-                <span className="text-sm text-graphite">{p.tags.join(', ')}</span>
+                <span className="text-sm text-muted">{p.tags.join(', ')}</span>
               </li>
             ))}
           </ul>

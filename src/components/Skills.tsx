@@ -1,25 +1,38 @@
 import { profile } from '../data/profile';
-import SectionHeading from './SectionHeading';
 
 export default function Skills() {
   return (
     <section id="skills" aria-labelledby="skills-title" className="border-b-[3px] border-ink">
-      <div className="mx-auto max-w-[1400px] px-6 py-16 md:px-10 md:py-20">
-        <SectionHeading id="skills-title" intro="What I reach for, grouped by the job it does.">
+      <div className="mx-auto container px-6 py-16 md:px-10 md:py-20">
+        {/* Label with a long accent line, then the heading */}
+        <p className="flex items-center gap-4 text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-muted sm:text-xs sm:tracking-[0.22em]">
           Skills
-        </SectionHeading>
+          <span aria-hidden className="h-[2px] max-w-[33rem] flex-1 bg-accent" />
+        </p>
 
-        <dl className="mt-10 border-t-2 border-ink">
+        <h2
+          id="skills-title"
+          className="mt-4 text-[clamp(2.25rem,4vw,3.25rem)] font-bold leading-none tracking-[-0.04em]"
+        >
+          What I work with
+        </h2>
+
+        <dl className="mt-10 border-t border-rule md:mt-12">
           {profile.skills.map((group) => (
             <div
               key={group.group}
-              className="grid gap-x-8 gap-y-3 border-b border-rule py-6 md:grid-cols-[16rem_1fr]"
+              className="grid gap-x-8 gap-y-4 border-b border-rule py-6 md:grid-cols-[20rem_1fr] md:py-7"
             >
-              <dt className="display text-3xl">{group.group}</dt>
+              <dt className="pt-2 font-bold uppercase tracking-[0.18em] text-muted sm:text-xs md:text-lg sm:tracking-[0.22em]">
+                {group.group}
+              </dt>
               <dd>
-                <ul className="flex flex-wrap gap-2">
+                <ul className="flex flex-wrap gap-2.5">
                   {group.items.map((item) => (
-                    <li key={item} className="rounded-full border-2 border-ink px-4 py-1 text-base">
+                    <li
+                      key={item}
+                      className="cursor-default rounded-lg border border-rule bg-white px-4 py-2 text-[0.95rem] shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-ink hover:bg-accent/25 hover:shadow-md sm:text-base"
+                    >
                       {item}
                     </li>
                   ))}

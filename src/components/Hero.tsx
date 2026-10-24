@@ -1,4 +1,3 @@
-
 import {
   useEffect,
   useRef,
@@ -32,20 +31,18 @@ export default function Hero() {
   const section = useRef<HTMLElement>(null);
   const lines = useRef<HTMLDivElement>(null);
   const light = useRef<HTMLDivElement>(null);
-  const dot = useRef<HTMLDivElement>(null);
   const [imageFailed, setImageFailed] = useState(false);
 
   useEffect(() => {
     const el = section.current;
 
-    if (!el || !lines.current || !light.current || !dot.current) return;
+    if (!el || !lines.current || !light.current) return;
     if (!window.matchMedia('(pointer: fine)').matches) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     el.classList.add('hero--pointer');
 
     const target = { x: 0, y: 0 };
-    const dotPos = { x: 0, y: 0 };
     const lightPos = { x: 0, y: 0 };
 
     let width = 1;
@@ -53,14 +50,8 @@ export default function Hero() {
     let frame = 0;
 
     const draw = () => {
-      dotPos.x += (target.x - dotPos.x) * 0.45;
-      dotPos.y += (target.y - dotPos.y) * 0.45;
-
       lightPos.x += (target.x - lightPos.x) * 0.09;
       lightPos.y += (target.y - lightPos.y) * 0.09;
-
-      dot.current!.style.transform =
-        `translate3d(${dotPos.x}px, ${dotPos.y}px, 0)`;
 
       light.current!.style.transform =
         `translate3d(${lightPos.x - 272}px, ${lightPos.y - 272}px, 0)`;
@@ -70,8 +61,6 @@ export default function Hero() {
       }px, ${(0.5 - lightPos.y / height) * 16}px, 0)`;
 
       const settled =
-        Math.abs(target.x - dotPos.x) < 0.2 &&
-        Math.abs(target.y - dotPos.y) < 0.2 &&
         Math.abs(target.x - lightPos.x) < 0.2 &&
         Math.abs(target.y - lightPos.y) < 0.2;
 
@@ -88,8 +77,8 @@ export default function Hero() {
       target.y = e.clientY - box.top;
 
       if (el.dataset.on !== '1') {
-        dotPos.x = lightPos.x = target.x;
-        dotPos.y = lightPos.y = target.y;
+        lightPos.x = target.x;
+        lightPos.y = target.y;
         el.dataset.on = '1';
       }
 
@@ -127,9 +116,8 @@ export default function Hero() {
       <div ref={lines} className="hero__lines" aria-hidden />
       <div className="hero__glow" aria-hidden />
       <div ref={light} className="hero__light" aria-hidden />
-      <div ref={dot} className="hero__dot" aria-hidden />
 
-      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-[clamp(1.25rem,6.5vw,7rem)] py-[clamp(2rem,4vw,4rem)]">
+      <div className="relative z-10 mx-auto w-full container px-6 md:px-10 py-[clamp(2rem,4vw,4rem)]">
         <div className="grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-8">
 
           {/* Left: introduction */}

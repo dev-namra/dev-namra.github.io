@@ -211,6 +211,37 @@
   .hero[data-on="1"] .hero__dot {
     opacity: 1;
   }
+    /* Page-wide dot cursor. Add this to index.css, and delete the old .hero__dot
+     rule and the .hero[data-on="1"] .hero__dot selector. */
+  .dot-cursor,
+  .dot-cursor * {
+    cursor: none;
+  }
+  .dot-cursor a,
+  .dot-cursor a *,
+  .dot-cursor button,
+  .dot-cursor button *,
+  .dot-cursor input,
+  .dot-cursor textarea,
+  .dot-cursor select {
+    cursor: pointer;
+  }
+  .cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 0.65rem;
+    height: 0.65rem;
+    margin: -0.325rem 0 0 -0.325rem;
+    border-radius: 9999px;
+    background: var(--color-ink);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 200ms;
+    will-change: transform;
+  }
+
 
   /* Eyebrow: location in monospace, followed by a rule. */
   .eyebrow {

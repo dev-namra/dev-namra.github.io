@@ -5,10 +5,10 @@ export default function Contact() {
 
   return (
     <section id="contact" aria-labelledby="contact-title">
-      <div className="mx-auto max-w-[1400px] px-6 py-16 md:px-10 md:py-24">
+      <div className="mx-auto container px-6 py-16 md:px-10 md:py-24">
         <h2
           id="contact-title"
-          className="display max-w-[16ch] text-balance text-[clamp(3rem,9vw,8rem)]"
+          className="display max-w-[16ch] text-balance text-[clamp(2rem,7vw,6rem)]"
         >
           Hiring for BIM, automation or architecture?
         </h2>

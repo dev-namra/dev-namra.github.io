@@ -21,6 +21,12 @@ export interface Comparison {
   after: Figure;
 }
 
+export interface Video {
+  src: string; // path under /public
+  poster: string;
+  caption: string;
+}
+
 export interface SubProject {
   title: string;
   summary: string;
@@ -48,6 +54,7 @@ export interface Project {
   note?: string;
   flow?: string[];
   thumb?: Figure;
+  video?: Video;
   sub: SubProject[];
   figures: Figure[];
   comparisons?: Comparison[];
@@ -129,7 +136,17 @@ export const projects: Project[] = [
       { value: '62+', label: 'Active users' },
       { value: '£15,000', label: 'Projected annual licensing savings' },
     ],
-    note: 'Screenshots are not shown because they include client project names and 3D models. The diagram above shows how the platform fits together.',
+    note: 'Brand names and sensitive information are hidden or blurred in line with confidentiality agreements.',
+    thumb: {
+      src: '/projects/spark-construct/devices.webp',
+      alt: 'Spark Construct on a laptop, a tablet and a phone, showing hubs, projects, models and a 3D model viewer',
+      caption: 'Spark Construct on desktop, tablet and phone.',
+    },
+    video: {
+      src: '/projects/spark-construct/how-it-works.mp4',
+      poster: '/projects/spark-construct/video-poster.jpg',
+      caption: 'A walk-through of Spark Construct.',
+    },
     flow: [
       'BIM 360 hub',
       'Autodesk Platform Services',
@@ -150,7 +167,13 @@ export const projects: Project[] = [
         summary: 'A SQL database behind the app for usage logging and real-time monitoring.',
       },
     ],
-    figures: [],
+    figures: [
+      {
+        src: '/projects/spark-construct/ipad.webp',
+        alt: 'Spark Construct on a tablet with a keyboard, listing hubs, projects and models',
+        caption: 'Hubs, projects and models on a tablet.',
+      },
+    ],
   },
   {
     slug: 'iot-atlas',

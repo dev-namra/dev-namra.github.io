@@ -25,7 +25,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-rule bg-paper/85 backdrop-blur">
-      <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-6 py-3 md:px-10">
+      <div className="mx-auto flex container items-center justify-between gap-4 px-6 py-3 md:px-10">
         <Link to="/" aria-label={`${profile.name}, home`} className="logo">
           {profile.initials}
         </Link>

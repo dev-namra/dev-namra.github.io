@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import CursorDot from './components/CursorDot';
+import BackToTop from './components/BackToTop';
 import Home from './pages/Home';
 import ProjectPage from './pages/ProjectPage';
 import NotFound from './pages/NotFound';
@@ -33,6 +34,7 @@ export default function App() {
       </a>
       <ScrollManager />
       <CursorDot />
+      <BackToTop />
       <Header />
       <main id="main">
         <Routes>

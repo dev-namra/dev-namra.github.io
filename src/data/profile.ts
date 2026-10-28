@@ -53,10 +53,10 @@ export const profile = {
   ] as Stat[],
 
   about: [
+    'I\u2019m a BIM specialist with an architect\u2019s eye, and I use automation to keep models accurate, current and easy for project teams to use.',
     'My career has crossed two countries. In India I trained as an architect and spent three years in Delhi designing offices, showrooms and expo booths, then producing the working drawings to build them. That taught me what a drawing has to do once it leaves the studio.',
     'In the UK I completed a master\u2019s in BIM and then spent almost three years with an offsite construction contractor. There I managed model information for hospital projects using ISO 19650, BIM 360 and a common data environment, built Revit tools that automate drawings, and created a web platform that gives project and factory teams direct access to model data.',
-    'I\u2019m a BIM specialist with an architect\u2019s eye, and I use automation to keep models accurate, current and easy for project teams to use.',
-    'I\u2019m on a career break, building this portfolio and sharpening my Revit API and cloud skills. I\u2019m looking for BIM, digital construction and automation roles.',
+    'I\u2019m looking for BIM, digital construction and automation roles.',
   ],
   photo: {
     src: '/about/namra.webp',

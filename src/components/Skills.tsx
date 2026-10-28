@@ -2,7 +2,7 @@ import { profile } from '../data/profile';
 
 export default function Skills() {
   return (
-    <section id="skills" aria-labelledby="skills-title" className="border-b-[3px] border-ink">
+    <section id="skills" aria-labelledby="skills-title" className="border-b border-rule">
       <div className="mx-auto container px-6 py-16 md:px-10 md:py-20">
         {/* Label with a long accent line, then the heading */}
         <p className="flex items-center gap-4 text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-muted sm:text-xs sm:tracking-[0.22em]">
@@ -31,7 +31,7 @@ export default function Skills() {
                   {group.items.map((item) => (
                     <li
                       key={item}
-                      className="cursor-default rounded-lg border border-rule bg-white px-4 py-2 text-[0.95rem] shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-ink hover:bg-accent/25 hover:shadow-md sm:text-base"
+                      className="cursor-default rounded-full border border-rule bg-surface px-4 py-2 text-[0.95rem] shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-teal hover:bg-teal/10 hover:shadow-md sm:text-base"
                     >
                       {item}
                     </li>

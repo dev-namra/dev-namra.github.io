@@ -2,14 +2,16 @@
 
 /* Design tokens. Light is the default; the dark values are defined once, below. */
 @theme {
-  --color-paper: #f8f5ef; /* page ground */
+  --color-paper: #f4f1ea; /* page ground */
   --color-surface: #ffffff; /* raised pills and panels */
-  --color-ink: #161616; /* text and outlines */
-  --color-graphite: #5e5b54; /* secondary text */
-  --color-rule: #e0dbd0; /* grid and hairlines */
-  --color-accent: #ffd000; /* fills: logo, badges, highlights */
-  --color-on-accent: #161616; /* text on the yellow */
-  --color-gold: #7a5c00; /* accent used as text: readable on cream */
+  --color-ink: #0f2d2e; /* text and outlines */
+  --color-graphite: #55706f; /* secondary text */
+  --color-muted: #55706f; /* secondary text (alias) */
+  --color-rule: #dcd6c8; /* grid and hairlines */
+  --color-teal: #1f7a74; /* primary: buttons, icons, chips */
+  --color-accent: #ff6b4a; /* coral: the one loud colour */
+  --color-on-accent: #0f2d2e; /* text on coral */
+  --color-gold: #bf3e22; /* coral used as text: readable on cream */
   --font-sans: "Space Grotesk Variable", "Helvetica Neue", Arial, sans-serif;
   --font-mono: "Space Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 }
@@ -17,22 +19,26 @@
 /* Dark theme: follows the system unless the visitor picks one with the toggle. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --color-paper: #121211;
-    --color-surface: #1c1c1a;
-    --color-ink: #f3efe6;
-    --color-graphite: #a9a59b;
-    --color-rule: #2d2c28;
-    --color-gold: #ffd000;
+    --color-paper: #0b1f20;
+    --color-surface: #12302f;
+    --color-ink: #f4f1ea;
+    --color-graphite: #9db3b2;
+    --color-muted: #9db3b2;
+    --color-rule: #214240;
+    --color-teal: #228f87;
+    --color-gold: #ff8a6e;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --color-paper: #121211;
-  --color-surface: #1c1c1a;
-  --color-ink: #f3efe6;
-  --color-graphite: #a9a59b;
-  --color-rule: #2d2c28;
-  --color-gold: #ffd000;
+  --color-paper: #0b1f20;
+  --color-surface: #12302f;
+  --color-ink: #f4f1ea;
+  --color-graphite: #9db3b2;
+  --color-muted: #9db3b2;
+  --color-rule: #214240;
+  --color-teal: #228f87;
+  --color-gold: #ff8a6e;
   color-scheme: dark;
 }
 
@@ -82,21 +88,20 @@
     font-variant-numeric: tabular-nums;
   }
 
-  /* Pill button with a hard shadow. Used in the header and for secondary actions. */
+  /* Soft rounded button. Used in the header and for secondary actions. */
   .pill,
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    border: 2px solid var(--color-ink);
-    border-radius: 9999px;
+    border: 1.5px solid var(--color-rule);
+    border-radius: 14px;
     background: var(--color-surface);
     color: var(--color-ink);
     padding: 0.55rem 1.3rem;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 1.05rem;
-    box-shadow: 3px 3px 0 var(--color-ink);
     transition:
       transform 150ms,
       box-shadow 150ms,
@@ -104,15 +109,17 @@
   }
   .pill:hover,
   .btn:hover {
-    transform: translate(2px, 2px);
-    box-shadow: 1px 1px 0 var(--color-ink);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgb(15 45 46 / 0.12);
   }
   .btn {
     padding: 0.7rem 1.5rem;
   }
   .btn-solid {
+    border-color: transparent;
     background: var(--color-accent);
     color: var(--color-on-accent);
+    box-shadow: 0 8px 18px rgb(255 107 74 / 0.35);
   }
 
   .logo {
@@ -120,10 +127,9 @@
     place-items: center;
     width: 3.25rem;
     height: 3.25rem;
-    border: 2px solid var(--color-ink);
-    border-radius: 0.8rem;
-    background: var(--color-accent);
-    color: var(--color-on-accent);
+    border-radius: 1rem;
+    background: var(--color-teal);
+    color: #fff;
     font-size: 1.35rem;
     font-weight: 700;
     letter-spacing: -0.03em;
@@ -133,8 +139,8 @@
     place-items: center;
     width: 3rem;
     height: 3rem;
-    border: 2px solid var(--color-ink);
-    border-radius: 9999px;
+    border: 1.5px solid var(--color-rule);
+    border-radius: 14px;
     background: transparent;
     color: var(--color-ink);
     transition: background-color 150ms;
@@ -143,7 +149,7 @@
     background: var(--color-surface);
   }
 
-  /* Hero. A drawing grid, one soft glow, and a yellow light that follows the cursor. */
+  /* Hero. A drawing grid, one soft glow, and a coral light that follows the cursor. */
   .hero {
     position: relative;
     overflow: hidden;
@@ -177,7 +183,7 @@
     height: 30rem;
     margin-left: calc(min(64rem, 120vw) / -2);
     pointer-events: none;
-    background: radial-gradient(closest-side, rgb(255 208 0 / 0.14), transparent);
+    background: radial-gradient(closest-side, rgb(255 107 74 / 0.2), transparent);
   }
   .hero__light {
     position: absolute;
@@ -189,30 +195,13 @@
     pointer-events: none;
     opacity: 0;
     transition: opacity 300ms;
-    background: radial-gradient(closest-side, rgb(255 208 0 / 0.5), rgb(255 208 0 / 0.16) 55%, transparent);
+    background: radial-gradient(closest-side, rgb(255 107 74 / 0.38), rgb(255 107 74 / 0.12) 55%, transparent);
     will-change: transform;
   }
-  .hero__dot {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 5;
-    width: 0.65rem;
-    height: 0.65rem;
-    margin: -0.325rem 0 0 -0.325rem;
-    border-radius: 9999px;
-    background: var(--color-ink);
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 200ms;
-    will-change: transform;
-  }
-  .hero[data-on="1"] .hero__light,
-  .hero[data-on="1"] .hero__dot {
+  .hero[data-on="1"] .hero__light {
     opacity: 1;
   }
-    /* Page-wide dot cursor. Add this to index.css, and delete the old .hero__dot
-     rule and the .hero[data-on="1"] .hero__dot selector. */
+  /* Page-wide dot cursor. */
   .dot-cursor,
   .dot-cursor * {
     cursor: none;
@@ -235,7 +224,7 @@
     height: 0.65rem;
     margin: -0.325rem 0 0 -0.325rem;
     border-radius: 9999px;
-    background: var(--color-ink);
+    background: var(--color-accent);
     pointer-events: none;
     opacity: 0;
     transition: opacity 200ms;
@@ -306,21 +295,21 @@
   }
 
 
-/* Smaller primary CTA */
+/* Primary CTA: teal, rounded, with a coral wash on hover */
 .cta {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.9rem;
   overflow: hidden;
-  border: 2px solid var(--color-ink);
-  border-radius: 9999px;
-  background: var(--color-surface);
-  color: var(--color-ink);
-  padding: 0.35rem 0.35rem 0.35rem 1.2rem;
-  font-weight: 500;
-  font-size: 1rem;
-  box-shadow: 4px 4px 0 var(--color-ink);
+  border: 0;
+  border-radius: 16px;
+  background: var(--color-teal);
+  color: #fff;
+  padding: 0.6rem 0.6rem 0.6rem 1.5rem;
+  font-weight: 600;
+  font-size: 1.05rem;
+  box-shadow: 0 10px 22px rgb(31 122 116 / 0.3);
   transition:
     transform 180ms,
     box-shadow 180ms;
@@ -339,26 +328,26 @@
   position: relative;
 }
 
-.cta:hover .cta__text {
+.cta:hover .cta__text,
+.cta:hover .cta__icon {
   color: var(--color-on-accent);
 }
 
 .cta__icon {
   display: grid;
   place-items: center;
-  width: 2rem;
-  height: 2rem;
+  width: 2.1rem;
+  height: 2.1rem;
   flex-shrink: 0;
-  border: 2px solid var(--color-ink);
-  border-radius: 9999px;
-  background: var(--color-accent);
-  color: var(--color-on-accent);
+  border-radius: 10px;
+  background: rgb(255 255 255 / 0.18);
+  color: #fff;
   transition: transform 250ms;
 }
 
 .cta:hover {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 var(--color-ink);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgb(31 122 116 / 0.38);
 }
 
 .cta:hover .cta__fill {
@@ -370,48 +359,44 @@
 }
 
 
-/* Smaller secondary CTA */
+/* Secondary CTA: teal outline */
 .ghost {
   display: inline-flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem;
-  border: 1.5px dashed color-mix(
-    in srgb,
-    var(--color-graphite) 60%,
-    transparent
-  );
-  border-radius: 1.5rem;
-  padding: 0.5rem 0.5rem 0.5rem 1.2rem;
-  color: var(--color-graphite);
+  gap: 0.6rem;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  border: 1.5px dashed var(--color-teal);
+  border-radius: 16px;
+  padding: 0.7rem 0.7rem 0.7rem 1.2rem;
+  color: var(--color-teal);
+  font-weight: 600;
   font-size: 1rem;
   transition:
+    background-color 200ms,
     border-color 200ms,
     color 200ms;
 }
 
 .ghost:hover {
-  border-style: solid;
-  border-color: var(--color-ink);
-  color: var(--color-ink);
+  border-style: 2px solid;
+  background: rgb(31 122 116 / 0.08);
 }
 
 .ghost__dot {
-  width: 0.65rem;
-  height: 0.65rem;
+  width: 0.55rem;
+  height: 0.55rem;
   flex-shrink: 0;
-  border: 1.5px solid var(--color-ink);
   border-radius: 9999px;
   background: var(--color-accent);
 }
 
 .ghost__badge {
-  border: 1px solid var(--color-ink);
   border-radius: 9999px;
   background: var(--color-accent);
   color: var(--color-on-accent);
-  padding: 0.1rem 0.55rem;
-  font-size: 1rem;
+  padding: 0.15rem 0.7rem;
+  font-size: 0.9rem;
   font-weight: 600;
 }
 
@@ -459,4 +444,5 @@
       transition: none;
     }
   }
+
 }

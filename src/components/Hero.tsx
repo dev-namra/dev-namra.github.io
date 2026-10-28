@@ -168,7 +168,7 @@ export default function Hero() {
 
             {/* Actions */}
             <div
-              className="intro mt-7 flex flex-col items-start gap-4 sm:mt-9 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4"
+              className="intro mt-7 flex flex-row flex-wrap items-center gap-3 sm:mt-9 sm:gap-4"
               style={delay(lastWordMs + 100)}
             >
               <a
@@ -181,8 +181,8 @@ export default function Hero() {
 
                 <span className="cta__icon" aria-hidden>
                   <svg
-                    width="16"
-                    height="16"
+                    width="18"
+                    height="18"
                     viewBox="0 0 16 16"
                     fill="none"
                     stroke="currentColor"
@@ -201,7 +201,7 @@ export default function Hero() {
                 className="ghost"
               >
                 <span className="ghost__dot" aria-hidden />
-                Let’s build something together
+                Let’s build together
                 <span className="ghost__badge">Get in touch</span>
               </a>
             </div>
@@ -210,7 +210,7 @@ export default function Hero() {
           {/* Right: BIM building visual */}
           <div className="bim-visual relative mx-auto w-full min-w-0 max-w-[680px] lg:ml-auto">
             <div
-              className="absolute left-1/2 top-1/2 aspect-square w-[76%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/15"
+              className="absolute left-1/2 top-1/2 aspect-square w-[76%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-teal/[0.12]"
               aria-hidden
             />
 
@@ -247,30 +247,21 @@ export default function Hero() {
             </div>
 
             {/* Floating software card */}
-            <div className="absolute left-0 top-[10%] z-20 max-w-[75%] rounded-xl border border-rule bg-paper/95 px-3 py-2.5 shadow-sm backdrop-blur-sm sm:rounded-2xl sm:px-5 sm:py-3">
-              <p className="text-[0.65rem] font-medium text-muted sm:text-sm">
-                ◇ &nbsp; Revit / Navisworks / APS
-              </p>
+            <div className="absolute left-0 top-[10%] max-w-[75%] z-20 flex items-center gap-2.5 rounded-[14px] bg-surface px-3 py-2.5 shadow-[0_10px_24px_rgba(15,45,46,0.12)] sm:px-[18px] sm:py-3">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-teal)" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5z" /><path d="m3 13 9 5 9-5" /></svg>
+              <p className="text-[0.65rem] font-medium sm:text-sm">Revit / Navisworks / APS</p>
             </div>
 
             {/* Floating automation card */}
-            <div className="absolute right-0 top-[25%] z-20 rounded-xl border border-rule bg-paper/95 px-3 py-2.5 shadow-sm backdrop-blur-sm sm:rounded-2xl sm:px-5 sm:py-3">
-              <p className="text-[0.65rem] font-semibold sm:text-sm">
-                Automation
-              </p>
-              <p className="text-[0.65rem] text-muted sm:text-sm">
-                & APIs
-              </p>
+            <div className="absolute right-0 top-[25%] z-20 flex items-center gap-2.5 rounded-[14px] bg-surface px-3 py-2.5 shadow-[0_10px_24px_rgba(15,45,46,0.12)] sm:px-[18px] sm:py-3">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M13 3 5 14h6l-1 7 8-11h-6z" /></svg>
+              <p className="text-[0.65rem] sm:text-sm"><b>Automation</b><br /><span className="text-muted">& APIs</span></p>
             </div>
 
             {/* Floating data card */}
-            <div className="absolute bottom-[15%] right-0 z-20 rounded-xl border border-rule bg-paper/95 px-3 py-2.5 shadow-sm backdrop-blur-sm sm:rounded-2xl sm:px-5 sm:py-3">
-              <p className="text-[0.65rem] font-semibold sm:text-sm">
-                Data / Dashboards
-              </p>
-              <p className="text-[0.65rem] text-muted sm:text-sm">
-                Power BI
-              </p>
+            <div className="absolute bottom-[15%] right-0 z-20 flex items-center gap-2.5 rounded-[14px] bg-surface px-3 py-2.5 shadow-[0_10px_24px_rgba(15,45,46,0.12)] sm:px-[18px] sm:py-3">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-teal)" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2" /></svg>
+              <p className="text-[0.65rem] sm:text-sm"><b>Data / Dashboards</b><br /><span className="text-muted">Power BI</span></p>
             </div>
 
             <p className="mt-3 text-right text-[0.58rem] font-semibold uppercase tracking-[0.12em] text-muted sm:text-xs sm:tracking-[0.15em]">

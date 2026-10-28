@@ -27,6 +27,11 @@ export interface Video {
   caption: string;
 }
 
+export interface Pdf {
+  src: string; // path under /public
+  title: string;
+}
+
 export interface SubProject {
   title: string;
   summary: string;
@@ -55,6 +60,8 @@ export interface Project {
   flow?: string[];
   thumb?: Figure;
   video?: Video;
+  pdf?: Pdf;
+  comingSoon?: boolean;
   sub: SubProject[];
   figures: Figure[];
   comparisons?: Comparison[];
@@ -317,86 +324,170 @@ export const projects: Project[] = [
     ],
     figures: [],
   },
+
   {
-    slug: 'revit-api-tools',
-    series: 'BA',
-    draft: true, // EDIT: describe one real tool, add sub-projects, then remove this line.
-    title: 'Revit API tools',
-    subtitle: 'Add-ins that take repetitive work out of Revit',
-    summary: 'Revit add-ins that automate repetitive modelling and documentation tasks.',
-    type: 'Revit API',
-    role: 'Developer',
-    organisation: 'Merit',
-    place: 'Newcastle, UK',
-    period: '2023–2026',
-    scope: ['Revit API'],
-    brief: ['Describe the problem the add-ins solved and who used them.'],
-    approach: ['Describe how you built them.'],
-    outcome: [],
-    sub: [],
-    figures: [],
-  },
-  {
-    slug: 'jaquar-spaces',
+    slug: 'interior-portfolio',
     series: 'AR',
-    title: 'Jaquar regional centres, offices and showrooms',
-    subtitle: 'Design, working drawings and furniture detailing',
+    title: 'Interior design',
+    subtitle: 'Commercial, hospitality and retail interiors',
     summary:
-      'Design, working drawings and furniture detailing for Jaquar’s regional centres, offices and showrooms, including its premium range and lighting.',
-    type: 'Interior architecture',
-    role: 'Senior Designer',
+      'Design, working drawings and furniture detailing for regional centres, offices, showrooms and restaurants, from concept to the drawings a contractor builds from.',
+    type: 'Interior design',
+    role: 'Senior Architect',
     organisation: 'Zeppelin Design and Environments',
-    place: 'India',
+    place: 'New Delhi, India',
     period: '2020–2022',
-    scope: ['Interior design', 'Working drawings', 'Furniture detailing'],
+    scope: ['Interior design', 'Working drawings', 'Furniture detailing', '3ds Max'],
     brief: [
-      'Jaquar was the main client at Zeppelin Design and Environments. I designed spaces for its regional centres, offices and showrooms, from concept through to the drawings a contractor builds from.',
+      'A selection of interior projects from my time at Zeppelin, including regional centres, offices and showrooms for the principal client.',
     ],
     approach: [
-      'Led design and execution for commercial, hospitality and retail projects.',
-      'Produced working drawing sets, and detailed the bespoke furniture at the level a joiner needs.',
-      'Coordinated with vendors and contractors, and streamlined documentation across the team.',
+      'Produced complete working drawings and detailed furniture drawings for every project.',
+      'Created 3D models and visualisations in 3ds Max and presented designs to clients.',
+      'Coordinated with vendors, contractors and site teams.',
     ],
     outcome: [],
-    note: 'Add images of built work here when you have permission to publish them.',
-    sub: [
+    thumb: {
+      src: '/projects/interior/interior-cover.webp',
+      alt: 'A collage of four interior renders: a café, a restaurant, a showroom and a bakery',
+      caption: 'Selected interior projects.',
+    },
+    sub: [],
+    figures: [
       {
-        title: 'Regional centres',
-        summary: 'Design development and working drawings for regional centres.', // EDIT
+        src: '/projects/interior/interior-01.webp',
+        alt: 'Project overview, interior design board',
+        caption: 'Project overview.',
       },
       {
-        title: 'Offices',
-        summary: 'Design development and working drawings for offices.', // EDIT
+        src: '/projects/interior/interior-02.webp',
+        alt: 'Boulangerie and café: cover, interior design board',
+        caption: 'Boulangerie and café: cover.',
       },
       {
-        title: 'Showrooms',
-        summary: 'Showrooms for the premium range and lighting, with detailed furniture drawings.', // EDIT
+        src: '/projects/interior/interior-03.webp',
+        alt: 'Boulangerie and café: concept, materials and layout, interior design board',
+        caption: 'Boulangerie and café: concept, materials and layout.',
+      },
+      {
+        src: '/projects/interior/interior-04.webp',
+        alt: 'Boulangerie and café: renders and finishes, interior design board',
+        caption: 'Boulangerie and café: renders and finishes.',
+      },
+      {
+        src: '/projects/interior/interior-05.webp',
+        alt: 'Boulangerie and café: elevation, renders and as built, interior design board',
+        caption: 'Boulangerie and café: elevation, renders and as built.',
+      },
+      {
+        src: '/projects/interior/interior-06.webp',
+        alt: 'Japanese restaurant: cover, interior design board',
+        caption: 'Japanese restaurant: cover.',
+      },
+      {
+        src: '/projects/interior/interior-07.webp',
+        alt: 'Japanese restaurant: concept, mood board and layout, interior design board',
+        caption: 'Japanese restaurant: concept, mood board and layout.',
+      },
+      {
+        src: '/projects/interior/interior-08.webp',
+        alt: 'Japanese restaurant: renders and details, interior design board',
+        caption: 'Japanese restaurant: renders and details.',
+      },
+      {
+        src: '/projects/interior/interior-09.webp',
+        alt: 'Japanese restaurant: renders and as built, interior design board',
+        caption: 'Japanese restaurant: renders and as built.',
+      },
+      {
+        src: '/projects/interior/interior-10.webp',
+        alt: 'Bakery and restaurant: cover, interior design board',
+        caption: 'Bakery and restaurant: cover.',
+      },
+      {
+        src: '/projects/interior/interior-11.webp',
+        alt: 'Bakery and restaurant: concept and mood board, interior design board',
+        caption: 'Bakery and restaurant: concept and mood board.',
+      },
+      {
+        src: '/projects/interior/interior-12.webp',
+        alt: 'Bakery and restaurant: floor plans and renders, interior design board',
+        caption: 'Bakery and restaurant: floor plans and renders.',
+      },
+      {
+        src: '/projects/interior/interior-13.webp',
+        alt: 'Bakery and restaurant: facade and finishes, interior design board',
+        caption: 'Bakery and restaurant: facade and finishes.',
+      },
+      {
+        src: '/projects/interior/interior-14.webp',
+        alt: 'Orientation centre: cover, interior design board',
+        caption: 'Orientation centre: cover.',
+      },
+      {
+        src: '/projects/interior/interior-15.webp',
+        alt: 'Orientation centre: concept and layout, interior design board',
+        caption: 'Orientation centre: concept and layout.',
+      },
+      {
+        src: '/projects/interior/interior-16.webp',
+        alt: 'Orientation centre: renders, interior design board',
+        caption: 'Orientation centre: renders.',
+      },
+      {
+        src: '/projects/interior/interior-17.webp',
+        alt: 'Orientation centre: renders and details, interior design board',
+        caption: 'Orientation centre: renders and details.',
+      },
+      {
+        src: '/projects/interior/interior-18.webp',
+        alt: 'Retail store: cover, interior design board',
+        caption: 'Retail store: cover.',
+      },
+      {
+        src: '/projects/interior/interior-19.webp',
+        alt: 'Retail store: concept, mood board and layout, interior design board',
+        caption: 'Retail store: concept, mood board and layout.',
+      },
+      {
+        src: '/projects/interior/interior-20.webp',
+        alt: 'Retail store: renders, interior design board',
+        caption: 'Retail store: renders.',
+      },
+      {
+        src: '/projects/interior/interior-21.webp',
+        alt: 'Concept display: prototypes and mood boards, interior design board',
+        caption: 'Concept display: prototypes and mood boards.',
       },
     ],
-    figures: [],
   },
   {
-    slug: 'expo-booths',
+    slug: 'architecture-portfolio',
     series: 'AR',
-    title: 'Expo booths and concept design',
-    subtitle: 'Concept designs and presentations for major clients',
+    title: 'Architecture',
+    subtitle: 'Concept design, presentations and exhibition design',
     summary:
       'Conceptual designs and client presentations, including expo booths for large-scale events, delivered on tight timelines.',
     type: 'Architecture',
     role: 'Architect',
     organisation: 'Sconce Global',
-    place: 'India',
+    place: 'New Delhi, India',
     period: '2019–2020',
     scope: ['Concept design', 'Presentations', 'Exhibition design'],
     brief: [
-      'At Sconce Global I created conceptual designs and presentations for major clients, and designed expo booths for large-scale events.',
+      'Architectural work from my years in practice, including concept design and exhibition structures.',
     ],
     approach: [
       'Developed concepts and presented them to clients.',
       'Worked with cross-functional teams and delivered on tight timelines.',
     ],
     outcome: [],
-    note: 'Add images of booths or concept boards here when you have permission to publish them.',
+    thumb: {
+      src: '/projects/architecture/coming-soon.webp',
+      alt: 'Elevation and plan line drawing with the words Coming soon',
+      caption: 'Architecture portfolio, coming soon.',
+    },
+    // Coming soon for now. The thumb above is shown as the figure. When the pages are ready, list them in `figures`.
     sub: [],
     figures: [],
   },

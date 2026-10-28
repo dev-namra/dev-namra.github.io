@@ -23,7 +23,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
 
 // White frame with a thick border and a hard shadow, like the rest of the site.
 const frame =
-  'rounded-[1.1rem] border-[3px] border-ink bg-white shadow-[8px_8px_0_0_var(--color-ink)]';
+  'rounded-[22px] border border-rule bg-surface shadow-[0_14px_34px_rgba(15,45,46,0.10)]';
 
 function Thumb({ project }: { project: Project }) {
   if (project.thumb) {
@@ -41,7 +41,7 @@ function Thumb({ project }: { project: Project }) {
   if (project.flow) {
     return (
       <div className={`${frame} grid aspect-[16/10] place-items-center p-6`}>
-        <div className="w-full container">
+        <div className="w-full max-w-[18rem]">
           <Flow steps={project.flow} compact />
         </div>
       </div>
@@ -91,7 +91,7 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
             {project.scope.map((tag) => (
               <li
                 key={tag}
-                className="rounded-lg border border-rule px-3 py-1.5 text-sm text-muted"
+                className="rounded-full border border-rule px-3 py-1.5 text-sm text-muted"
               >
                 {tag}
               </li>
@@ -163,7 +163,7 @@ export default function Work() {
   const list = projectsInSeries(active);
 
   return (
-    <section id="work" aria-labelledby="work-title" className="border-b-[3px] border-ink">
+    <section id="work" aria-labelledby="work-title" className="border-b border-rule">
       <div className="mx-auto container px-6 py-16 md:px-10 md:py-20">
         {/* Label with a long accent line, then the heading */}
         <p className="flex items-center gap-4 text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-muted sm:text-xs sm:tracking-[0.22em]">
@@ -187,7 +187,7 @@ export default function Work() {
           id="work-tabs"
           role="tablist"
           aria-label="Type of work"
-          className="mt-10 flex scroll-mt-24 items-end gap-2 border-b-[3px] border-ink"
+          className="mt-10 flex scroll-mt-24 items-end gap-2 border-b-2 border-rule"
         >
           {available.map((code) => {
             const on = code === active;
@@ -205,10 +205,10 @@ export default function Work() {
                 tabIndex={on ? 0 : -1}
                 onClick={() => setActive(code)}
                 onKeyDown={onKeyDown}
-                className={`relative flex-1 rounded-t-xl border-[3px] border-b-0 px-3 text-center text-sm font-semibold leading-tight transition-colors duration-150 sm:flex-none sm:px-7 sm:text-lg ${
+                className={`relative flex-1 rounded-t-2xl border-2 border-b-0 px-3 text-center text-sm font-semibold leading-tight transition-colors duration-150 sm:flex-none sm:px-7 sm:text-lg ${
                   on
-                    ? 'z-10 -mb-[3px] border-ink bg-paper pb-[calc(0.875rem+3px)] pt-[0.875rem] shadow-[inset_0_6px_0_0_var(--color-accent)] sm:pt-[1.125rem]'
-                    : 'border-rule bg-ink/[0.05] py-3 text-muted hover:bg-accent/20 hover:text-ink sm:py-3.5'
+                    ? 'z-10 -mb-[2px] border-rule bg-surface pb-[calc(0.875rem+2px)] pt-[0.875rem] shadow-[inset_0_5px_0_0_var(--color-teal)] sm:pt-[1.125rem]'
+                    : 'border-rule bg-ink/[0.05] py-3 text-muted hover:bg-teal/10 hover:text-ink sm:py-3.5'
                 }`}
               >
                 {tabLabel[code]}
@@ -245,7 +245,7 @@ export default function Work() {
           <p className="mt-2 max-w-[52ch] text-lg text-muted">
             Smaller front-end projects, live on the web.
           </p>
-          <ul className="mt-6 border-t-2 border-ink">
+          <ul className="mt-6 border-t border-rule">
             {sideProjects.map((p) => (
               <li
                 key={p.title}

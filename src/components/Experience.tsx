@@ -33,7 +33,7 @@ export default function Experience() {
   };
 
   return (
-    <section id="experience" aria-labelledby="experience-title" className="border-b-[3px] border-ink">
+    <section id="experience" aria-labelledby="experience-title" className="border-b border-rule">
       <div className="mx-auto container px-6 py-16 md:px-10 md:py-20">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,24rem)_minmax(0,1fr)] lg:gap-x-[clamp(2rem,6vw,6rem)]">
           {/* Left: heading and the list of roles (sticky on large screens) */}
@@ -60,26 +60,26 @@ export default function Experience() {
                         href={`#${idFor(i)}`}
                         onClick={jump(i)}
                         aria-current={on ? 'true' : undefined}
-                        className={`flex gap-4 rounded-xl px-4 py-3.5 transition-colors duration-200 ${
-                          on ? 'bg-white border border-accent' : 'hover:bg-ink/[0.04]'
+                        className={`flex gap-4 rounded-xl px-4 py-3 transition-colors duration-200 ${
+                          on ? 'border border-rule bg-surface shadow-[0_14px_34px_rgba(15,45,46,0.10)]' : 'hover:bg-ink/[0.04]'
                         }`}
                       >
                         <span
                           aria-hidden
-                          className={`mt-[0.55rem] h-3 w-3 shrink-0 rounded-full border-[1.5px] border-ink transition-colors duration-200 ${
+                          className={`mt-[0.55rem] h-3 w-3 shrink-0 rounded-full border-[1.5px] border-teal transition-colors duration-200 ${
                             on ? 'bg-accent' : 'bg-transparent'
                           }`}
                         />
                         <span className="min-w-0">
                           <span
-                            className={`block text-lg leading-snug transition-colors duration-200 ${
-                              on ? 'font-medium bold' : 'text-muted'
+                            className={`block text-base leading-snug transition-colors duration-200 ${
+                              on ? 'font-medium' : 'text-muted'
                             }`}
                           >
                             {job.title}
                           </span>
-                          <span className="mt-1 block text-sm text-muted">
-                            {job.org} · {job.place} · {job.years}
+                          <span className="mt-0.5 block text-xs text-muted">
+                            {job.org} · {job.years}
                           </span>
                         </span>
                       </a>
@@ -91,28 +91,28 @@ export default function Experience() {
           </div>
 
           {/* Right: one card per role */}
-          <ol className="space-y-8">
+          <ol className="space-y-5">
             {jobs.map((job, i) => (
               <li key={`${job.org}-${job.title}`}>
                 <article
                   id={idFor(i)}
-                  className="scroll-mt-24 rounded-[1.1rem] border-[3px] border-ink bg-white p-6 shadow-[6px_6px_0_0_var(--color-ink)] sm:p-8"
+                  className="scroll-mt-24 rounded-[22px] border border-rule bg-surface p-5 shadow-[0_14px_34px_rgba(15,45,46,0.10)] sm:p-6"
                 >
-                  <p className="text-base">
+                  <p className="text-sm">
                     <span className="font-semibold">{job.years}</span>
                     <span className="text-muted"> · {job.org} · {job.place}</span>
                   </p>
 
-                  <h3 className="mt-3 text-2xl font-bold leading-tight tracking-[-0.03em] sm:text-3xl">
+                  <h3 className="mt-2 text-xl font-bold leading-tight tracking-[-0.02em] sm:text-2xl">
                     {job.title}
                   </h3>
 
-                  <ul className="mt-5 space-y-3">
+                  <ul className="mt-4 space-y-2">
                     {job.points.map((point) => (
-                      <li key={point} className="flex gap-4 text-base leading-[1.7] sm:text-lg">
+                      <li key={point} className="flex gap-3 text-sm leading-relaxed sm:text-[0.95rem]">
                         <span
                           aria-hidden
-                          className="mt-[0.6rem] h-2.5 w-2.5 shrink-0 border-[1.5px] border-ink bg-accent"
+                          className="mt-[0.5rem] h-1.5 w-1.5 shrink-0 rounded-full bg-teal"
                         />
                         <span>{point}</span>
                       </li>
@@ -120,11 +120,11 @@ export default function Experience() {
                   </ul>
 
                   {'tags' in job && job.tags && job.tags.length > 0 && (
-                    <ul className="mt-6 flex flex-wrap gap-2">
+                    <ul className="mt-5 flex flex-wrap gap-1.5">
                       {job.tags.map((tag) => (
                         <li
                           key={tag}
-                          className="rounded-lg border border-rule px-3 py-1.5 text-sm text-muted"
+                          className="rounded-full border border-rule px-2.5 py-1 text-xs text-muted"
                         >
                           {tag}
                         </li>

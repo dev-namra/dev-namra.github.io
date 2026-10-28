@@ -26,7 +26,7 @@ export default function BackToTop() {
       aria-label="Back to top"
       tabIndex={visible ? 0 : -1}
       aria-hidden={!visible}
-      className={`fixed bottom-6 right-6 z-50 grid h-12 w-12 place-items-center rounded-full border-2 border-ink bg-white text-ink shadow-[3px_3px_0_0_var(--color-ink)] transition duration-200 hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_var(--color-ink)] md:bottom-8 md:right-8 md:h-14 md:w-14 ${
+      className={`fixed bottom-6 right-6 z-50 grid h-12 w-12 place-items-center rounded-[14px] bg-teal text-white shadow-[0_10px_22px_rgba(31,122,116,0.3)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_28px_rgba(31,122,116,0.38)] md:bottom-8 md:right-8 md:h-14 md:w-14 ${
         visible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-4 opacity-0'
       }`}
     >

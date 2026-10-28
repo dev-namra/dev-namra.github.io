@@ -4,6 +4,8 @@ import FigureList from '../components/FigureList';
 import Flow from '../components/Flow';
 import TitleBlock from '../components/TitleBlock';
 import { profile } from '../data/profile';
+import ProjectVideo from '../components/ProjectVideo';
+
 import {
   asset,
   seriesInfo,
@@ -41,7 +43,9 @@ export default function ProjectPage() {
 
   const sheet = sheetNumber(project);
   const accent = project.series === 'BA' ? 'text-gold' : 'text-ink';
+
   const next = list.length > 1 ? list[(index + 1) % list.length] : null;
+  const prev = list.length > 1 ? list[(index - 1 + list.length) % list.length] : null;
   const hasVisuals = project.figures.length > 0 || !!project.comparisons?.length || !!project.flow;
   const showFigures = project.figures.length > 0 || (import.meta.env.DEV && !hasVisuals);
   const hasPairs = !!project.challenges?.length && project.challenges.length === project.solutions?.length;
@@ -55,31 +59,37 @@ export default function ProjectPage() {
   ];
 
   return (
-    <article className="mx-auto max-w-[1400px] px-6 pb-24 md:px-10">
+    <article className="mx-auto container px-6 pb-24 md:px-10">
       <Link
-        to="/"
-        state={{ scrollTo: 'work' }}
-        className="label inline-block py-6 text-graphite underline-offset-4 hover:underline"
-      >
-        All work
-      </Link>
+  to="/"
+  state={{ scrollTo: 'work' }}
+  className="my-6 inline-flex items-center gap-2 rounded-2xl bg-teal px-5 py-3 text-sm font-semibold text-white shadow-[0_10px_22px_rgba(31,122,116,0.3)] transition hover:-translate-y-0.5"
+>
+  <span aria-hidden>←</span> All work
+</Link>
 
-      <header className="grid gap-x-8 gap-y-8 border-t-[3px] border-ink pb-14 pt-8 md:grid-cols-[8rem_1fr_16rem]">
-        <span className={`sheet-no text-2xl ${accent}`}>{sheet}</span>
-        <div>
-          <h1 className="display text-[clamp(2.75rem,8vw,7rem)] leading-[0.92]">{project.title}</h1>
-          <p className="label mt-4 text-xl text-graphite">{project.subtitle}</p>
-          <p className="mt-6 max-w-[40ch] text-2xl leading-[1.45]">{project.summary}</p>
+      <header className="border-t border-rule pt-8 md:pt-10">
+        <div className="flex items-center gap-4">
+          <span className={`sheet-no text-lg ${accent}`}>{sheet}</span>
+          <span aria-hidden className="h-[2px] w-16 bg-accent" />
+          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">{project.type}</span>
         </div>
-        <dl className="space-y-4 text-sm md:self-end">
+
+        <h1 className="display mt-6 text-[clamp(2.75rem,8vw,6.5rem)] leading-[0.92]">{project.title}</h1>
+        <p className="mt-5 max-w-[34ch] text-xl font-medium leading-snug text-teal sm:text-2xl">{project.subtitle}</p>
+        <p className="mt-5 max-w-[56ch] text-base leading-relaxed text-muted sm:text-lg">{project.summary}</p>
+
+        <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-6 border-y border-rule py-6 md:grid-cols-4">
           {facts.map((f) => (
             <div key={f.label}>
-              <dt className="label text-graphite">{f.label}</dt>
-              <dd className="mt-0.5">{f.value}</dd>
+              <dt className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">{f.label}</dt>
+              <dd className="mt-1.5 text-base font-medium">{f.value}</dd>
             </div>
           ))}
         </dl>
       </header>
+
+      <ProjectVideo video={project.video} />
 
       <Block label="Brief">
         <div className="max-w-[62ch] space-y-5 text-xl leading-[1.7]">
@@ -144,7 +154,7 @@ export default function ProjectPage() {
 
       {hasPairs && project.challenges && project.solutions && (
         <Block label="Challenges and solutions">
-          <div className="border-t-2 border-ink">
+          <div className="border-t border-rule">
             {project.challenges.map((challenge, i) => (
               <div
                 key={challenge}
@@ -166,7 +176,7 @@ export default function ProjectPage() {
 
       {project.sub.length > 0 && (
         <Block label="Sub-projects">
-          <ol className="border-t-2 border-ink">
+          <ol className="border-t border-rule">
             {project.sub.map((s, i) => (
               <li
                 key={s.title}
@@ -193,7 +203,7 @@ export default function ProjectPage() {
             </div>
           )}
           {project.metrics && project.metrics.length > 0 && (
-            <dl className="mt-8 max-w-[40rem] border-t-2 border-ink">
+            <dl className="mt-8 max-w-[40rem] border-t border-rule">
               {project.metrics.map((m) => (
                 <div
                   key={m.label}
@@ -211,7 +221,7 @@ export default function ProjectPage() {
         </Block>
       )}
 
-      <div className="border-t-[3px] border-ink pt-10">
+      <div className="border-t border-rule pt-10">
         <TitleBlock
           className="md:ml-auto md:max-w-md"
           rows={[
@@ -225,22 +235,40 @@ export default function ProjectPage() {
         />
       </div>
 
-      {next && (
-        <Link
-          to={`/project/${next.slug}`}
-          className="group mt-16 block border-t-[3px] border-ink pt-8"
-        >
-          <span className="label text-graphite">Next sheet</span>
-          <span className="mt-2 flex flex-wrap items-baseline gap-x-5">
-            <span className={`sheet-no text-xl ${next.series === 'BA' ? 'text-gold' : 'text-ink'}`}>
-              {sheetNumber(next)}
-            </span>
-            <span className="display text-4xl underline-offset-[0.12em] group-hover:underline group-hover:decoration-2 md:text-6xl">
-              {next.title}
-            </span>
+     {(prev || next) && (
+  <nav
+    aria-label="Other sheets"
+    className="mt-16 grid gap-8 border-t border-rule pt-8 md:grid-cols-2"
+  >
+    {prev && (
+      <Link to={`/project/${prev.slug}`} className="group block">
+        <span className="label text-graphite">← Previous sheet</span>
+        <span className="mt-2 flex flex-wrap items-baseline gap-x-4">
+          <span className={`sheet-no text-lg ${prev.series === 'BA' ? 'text-gold' : 'text-ink'}`}>
+            {sheetNumber(prev)}
           </span>
-        </Link>
-      )}
+          <span className="display text-3xl underline-offset-[0.12em] group-hover:underline group-hover:decoration-2 md:text-4xl">
+            {prev.title}
+          </span>
+        </span>
+      </Link>
+    )}
+
+    {next && (
+      <Link to={`/project/${next.slug}`} className="group block md:col-start-2 md:text-right">
+        <span className="label text-graphite">Next sheet →</span>
+        <span className="mt-2 flex flex-wrap items-baseline gap-x-4 md:justify-end">
+          <span className={`sheet-no text-lg ${next.series === 'BA' ? 'text-gold' : 'text-ink'}`}>
+            {sheetNumber(next)}
+          </span>
+          <span className="display text-3xl underline-offset-[0.12em] group-hover:underline group-hover:decoration-2 md:text-4xl">
+            {next.title}
+          </span>
+        </span>
+      </Link>
+    )}
+  </nav>
+)}
     </article>
   );
 }

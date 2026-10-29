@@ -1,7 +1,7 @@
 import { profile } from '../data/profile';
 
 export default function Contact() {
-  const { email, linkedin, github, cv } = profile.links;
+  const { email, linkedin, github } = profile.links;
 
   return (
     <section id="contact" aria-labelledby="contact-title">

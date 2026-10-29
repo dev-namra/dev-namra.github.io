@@ -27,17 +27,17 @@ const frame =
 
 function Thumb({ project }: { project: Project }) {
   if (project.thumb) {
-    return (
-      <div className={`${frame} p-3 sm:p-5`}>
-        <img
-          src={asset(project.thumb.src)}
-          alt={project.thumb.alt}
-          loading="lazy"
-          className="aspect-[16/10] w-full rounded-lg object-contain"
-        />
-      </div>
-    );
-  }
+  return (
+    <div className={`${frame} overflow-hidden`}>
+      <img
+        src={asset(project.thumb.src)}
+        alt={project.thumb.alt}
+        loading="lazy"
+        className="aspect-[16/10] w-full object-cover"
+      />
+    </div>
+  );
+}
   if (project.flow) {
     return (
       <div className={`${frame} grid aspect-[16/10] place-items-center p-6`}>

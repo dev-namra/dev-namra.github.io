@@ -55,15 +55,6 @@ export default function Contact() {
               >
                 GitHub ↗
               </a>
-              {cv && (
-                <a
-                  href={cv}
-                  download
-                  className="rounded-2xl bg-white/10 px-5 py-3.5 text-base font-semibold transition hover:bg-white/15"
-                >
-                  Download CV
-                </a>
-              )}
             </div>
           </div>
         </div>

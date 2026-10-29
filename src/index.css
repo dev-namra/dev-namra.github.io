@@ -116,11 +116,11 @@
     padding: 0.7rem 1.5rem;
   }
   .btn-solid {
-    border-color: transparent;
-    background: var(--color-accent);
-    color: var(--color-on-accent);
-    box-shadow: 0 8px 18px rgb(255 107 74 / 0.35);
-  }
+  border-color: transparent;
+  background: var(--color-teal);
+  color: #fff;
+  box-shadow: 0 8px 18px rgb(31 122 116 / 0.25);
+}
 
   .logo {
     display: grid;
@@ -393,8 +393,8 @@
 
 .ghost__badge {
   border-radius: 9999px;
-  background: var(--color-accent);
-  color: var(--color-on-accent);
+  background: rgb(255 107 74 / 0.16);
+  color: var(--color-gold);
   padding: 0.15rem 0.7rem;
   font-size: 0.9rem;
   font-weight: 600;

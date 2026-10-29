@@ -246,22 +246,22 @@ export default function Hero() {
               )}
             </div>
 
-            {/* Floating software card */}
-            <div className="absolute left-0 top-[10%] max-w-[75%] z-20 flex items-center gap-2.5 rounded-[14px] bg-surface px-3 py-2.5 shadow-[0_10px_24px_rgba(15,45,46,0.12)] sm:px-[18px] sm:py-3">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-teal)" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5z" /><path d="m3 13 9 5 9-5" /></svg>
-              <p className="text-[0.65rem] font-medium sm:text-sm">Revit / Navisworks / APS</p>
+            {/* Floating card 1: BIM automation */}
+            <div className="absolute left-0 top-[10%] z-20 flex max-w-[78%] items-center gap-2.5 rounded-[14px] bg-surface px-3 py-2.5 shadow-[0_10px_24px_rgba(15,45,46,0.12)] sm:px-[18px] sm:py-3">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-teal)" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M13 3 5 14h6l-1 7 8-11h-6z" /></svg>
+              <p className="text-[0.65rem] sm:text-sm"><b>BIM automation</b><br /><span className="text-muted">Revit API, APS, Power Automate</span></p>
             </div>
 
-            {/* Floating automation card */}
+            {/* Floating card 2: Architecture */}
             <div className="absolute right-0 top-[25%] z-20 flex items-center gap-2.5 rounded-[14px] bg-surface px-3 py-2.5 shadow-[0_10px_24px_rgba(15,45,46,0.12)] sm:px-[18px] sm:py-3">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M13 3 5 14h6l-1 7 8-11h-6z" /></svg>
-              <p className="text-[0.65rem] sm:text-sm"><b>Automation</b><br /><span className="text-muted">& APIs</span></p>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 21V5l8-3v19M12 9l8 3v9M2 21h20M8 8h.01M8 12h.01M8 16h.01M16 15h.01M16 18h.01" /></svg>
+              <p className="text-[0.65rem] sm:text-sm"><b>Architecture</b><br /><span className="text-muted">Working drawings & site work</span></p>
             </div>
 
-            {/* Floating data card */}
+            {/* Floating card 3: Interior design */}
             <div className="absolute bottom-[15%] right-0 z-20 flex items-center gap-2.5 rounded-[14px] bg-surface px-3 py-2.5 shadow-[0_10px_24px_rgba(15,45,46,0.12)] sm:px-[18px] sm:py-3">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-teal)" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2" /></svg>
-              <p className="text-[0.65rem] sm:text-sm"><b>Data / Dashboards</b><br /><span className="text-muted">Power BI</span></p>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-teal)" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 11V8a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v3" /><path d="M3 13a2 2 0 0 1 4 0v3h10v-3a2 2 0 0 1 4 0v5H3z" /><path d="M6 18v2M18 18v2" /></svg>
+              <p className="text-[0.65rem] sm:text-sm"><b>Interior design</b><br /><span className="text-muted">Commercial & hospitality</span></p>
             </div>
 
             <p className="mt-3 text-right text-[0.58rem] font-semibold uppercase tracking-[0.12em] text-muted sm:text-xs sm:tracking-[0.15em]">

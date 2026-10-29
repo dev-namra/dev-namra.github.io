@@ -36,7 +36,7 @@ export default function Header() {
                 <a
                   href="#/"
                   onClick={go(item.id)}
-                  className="text-lg text-graphite underline-offset-4 transition-colors hover:text-ink hover:underline"
+                  className="text-lg text-graphite underline-offset-4 transition-colors hover:text-teal hover:underline"
                 >
                   {item.label}
                 </a>
@@ -47,14 +47,14 @@ export default function Header() {
         <div className="flex items-center gap-3">
           <ThemeToggle />
           {cv ? (
-            <a href={cv} className="pill" download>
-              Résumé PDF
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                <path d="M8 2v10M4 8l4 4 4-4" />
+            <a href={cv} className="pill btn-solid" download>
+              Download CV
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M8 2v9M4 7.5l4 4 4-4M3 14h10" />
               </svg>
             </a>
           ) : (
-            <a href="#/" onClick={go('contact')} className="pill">
+            <a href="#/" onClick={go('contact')} className="pill btn-solid">
               Get in touch
             </a>
           )}

@@ -96,7 +96,6 @@ export const profile = {
       points: [
         'Built this portfolio to show my BIM automation and platform development work.',
         'Extending my Revit API, Autodesk Platform Services and cloud skills.',
-        'Applying for BIM and digital construction roles in the UAE, Europe and the UK.',
       ],
     },
     {
@@ -105,7 +104,7 @@ export const profile = {
       place: 'Newcastle upon Tyne, UK',
       years: '2023\u20132026',
       points: [
-        'Sole developer of Merit Spark, a full-stack BIM platform built on Autodesk Platform Services and the common data environment, now used by 62+ people across project and business teams.',
+        'Sole developer of Spark Construct, a full-stack BIM platform built on Autodesk Platform Services and the common data environment, now used by 62+ people across project and business teams.',
         'Replaced and consolidated third-party BIM tools, saving a projected \u00a315,000 a year in licences.',
         'Built a Revit API plugin that generates elevations automatically, cutting a four-hour task to about 30 minutes (roughly 87% saved).',
         'Built an MEP tool that places cable trays, wires and conduits automatically, and a parametric concept generator that compares modular hospital layouts from site dimensions.',
@@ -172,7 +171,6 @@ export const profile = {
     email: 'mahaknamra@outlook.com',
     linkedin: 'https://linkedin.com/in/namra-mahak',
     github: 'https://github.com/dev-namra',
-    // EDIT: put your CV in /public and set e.g. '/Namra-Mahak-CV.pdf'. Empty hides the CV buttons.
-    cv: '',
+    cv: '/Namra-Mahak-CV.pdf',
   },
 };
